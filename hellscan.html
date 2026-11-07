@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hellscan</title>
+<link rel="canonical" href="https://zotixsoft.com/hellscan">
+<meta name="description" content="Hellscan is a Windows security companion. Scorch, a small emerald dragon, checks what starts with your PC and sniffs every new download.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='2' y='2' width='60' height='60' rx='14' fill='%230b1d14' stroke='%233fe07f' stroke-width='3'/><path d='M32 8c4 10 8 14 9 22l7-8c3 12 3 24-2 30-8 5-20 5-28 0-5-6-5-18-2-30l7 8c1-8 5-12 9-22z' fill='%232fd870'/><path d='M12 36c8-9 32-9 40 0-8 9-32 9-40 0z' fill='%2307140e'/><circle cx='32' cy='36' r='7' fill='%23d8f76a'/><ellipse cx='32' cy='36' rx='2' ry='6.5' fill='%2307140e'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: the product is the hero. A working copy of the app and its dragon sit beside the headline, then the page reads down like a dragon's field notes. */
+:root {
+  color-scheme: dark;
+  --bg: #07140e;
+  --bg-2: #0b1d14;
+  --panel: #0f2419;
+  --row: #14301f;
+  --line: #24503a;
+  --fg: #eaf7ec;
+  --dim: #9ab8a6;
+  --emerald: #2fd870;
+  --emerald-deep: #128a48;
+  --mint: #a9f2b1;
+  --cream: #fbf0e1;
+  --ink: #2a170c;
+  --threat: #ff6a5c;
+  --warn: #f6b93f;
+  --display: "Anton", Impact, "Arial Narrow", sans-serif;
+  --body: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 var(--body); overflow-x: hidden; }
+a { color: var(--mint); }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+h1, h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .01em; line-height: 1.04; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(2.1rem, 5vw, 3.4rem); color: var(--mint); }
+h3 { font-size: 1.2rem; font-weight: 800; line-height: 1.3; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+
+.band { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1160px; margin: 0 auto; }
+section.band { padding-block: clamp(56px, 8vw, 96px); }
+.lede { color: var(--dim); max-width: 62ch; }
+.stack { display: grid; gap: 18px; }
+
+/* nav */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 18px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--mint); font: 400 1.5rem/1 var(--display); letter-spacing: .03em; }
+.brand img { width: 36px; height: 36px; border-radius: 9px; }
+.nav nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.nav nav a { color: var(--dim); text-decoration: none; font-weight: 600; font-size: .95rem; }
+.nav nav a:hover { color: var(--mint); }
+
+/* hero */
+.hero { background: radial-gradient(70% 90% at 78% 30%, #123f28 0%, transparent 70%), var(--bg); padding-bottom: clamp(48px, 7vw, 88px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(28px, 5vw, 64px); align-items: start; padding-top: clamp(16px, 4vw, 44px); }
+.hero-copy { display: grid; gap: 22px; min-width: 0; }
+.eyebrow { color: var(--emerald); font-weight: 800; font-size: .84rem; letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-size: clamp(3.6rem, 9.4vw, 7.4rem); background: linear-gradient(180deg, #c9f8cb 10%, #4fdd83 92%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 22px rgba(47, 216, 112, .42)); }
+.hero-copy p { font-size: 1.16rem; max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-block; border: 0; border-radius: 10px; padding: 13px 22px; font: 800 1rem/1.2 var(--body); cursor: pointer; text-decoration: none; background: var(--emerald); color: #04200f; }
+.btn:hover { background: var(--mint); }
+.btn.ghost { background: transparent; color: var(--mint); box-shadow: inset 0 0 0 1.5px var(--line); }
+.btn.ghost:hover { background: var(--row); }
+.note { color: var(--dim); font-size: .92rem; }
+
+/* demo: mirrors the real app's panel */
+.stage { display: grid; gap: 6px; min-width: 0; }
+.tag { justify-self: start; font-size: .82rem; font-weight: 600; color: var(--ink); background: var(--warn); padding: 3px 10px; border-radius: 6px; }
+.app { background: var(--panel); border: 2px solid var(--emerald-deep); border-radius: 16px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 0 44px rgba(47, 216, 112, .16); min-width: 0; }
+.app-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.app-title { font: 400 1.5rem/1 var(--display); color: #62ee92; letter-spacing: .03em; }
+.app-title small { font: 400 .82rem var(--body); color: var(--dim); letter-spacing: 0; margin-left: 8px; }
+.app .btn { padding: 8px 26px; }
+.app .btn[disabled] { opacity: .6; cursor: progress; }
+.tally { display: flex; flex-wrap: wrap; gap: 4px 16px; font-weight: 800; font-size: .95rem; font-variant-numeric: tabular-nums; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.tally .t { color: var(--threat); } .tally .s { color: var(--warn); } .tally .c { color: #66d98d; }
+.tally .n { color: var(--dim); font-weight: 400; }
+.finds { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; min-height: 276px; align-content: start; }
+.find { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 12px; text-align: left; background: var(--row); color: var(--fg); border: 0; border-left: 5px solid #66d98d; border-radius: 6px; padding: 7px 11px; cursor: pointer; font: inherit; }
+.find:hover { background: #1b3d29; }
+.find[aria-pressed="true"] { box-shadow: inset 0 0 0 1.5px var(--mint); }
+.find b { font-size: .95rem; overflow-wrap: anywhere; line-height: 1.35; }
+.find span { grid-column: 1; color: var(--dim); font-size: .78rem; line-height: 1.35; overflow-wrap: anywhere; }
+.find i { grid-column: 2; grid-row: 1; font: 600 .7rem/1.9 var(--mono); color: #66d98d; }
+.find.sev2 { border-left-color: var(--threat); } .find.sev2 i { color: var(--threat); }
+.find.sev1 { border-left-color: var(--warn); } .find.sev1 i { color: var(--warn); }
+.find.vault { opacity: .62; border-left-color: var(--dim); } .find.vault i { color: var(--dim); }
+.detail { background: var(--bg-2); border-radius: 8px; padding: 12px 14px; min-height: 142px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.detail h3 { font-size: .9rem; color: var(--mint); }
+.detail ul { margin: 0; padding-left: 18px; font-size: .9rem; line-height: 1.45; }
+.detail code { display: block; color: var(--dim); font-size: .74rem; overflow-wrap: anywhere; }
+.detail .btn { justify-self: start; padding: 7px 14px; font-size: .86rem; background: #b23a32; color: #fff; }
+.detail .btn:hover { background: #d14a40; }
+
+.lair { display: grid; grid-template-columns: minmax(0, 1fr) clamp(170px, 44%, 270px); align-items: end; gap: 0; }
+.bubble { position: relative; background: var(--cream); color: var(--ink); border-radius: 14px; padding: 12px 15px; font-weight: 600; font-size: .95rem; line-height: 1.4; margin-bottom: 44px; min-height: 66px; }
+.bubble::after { content: ""; position: absolute; right: -15px; bottom: 16px; border-left: 18px solid var(--cream); border-top: 9px solid transparent; border-bottom: 9px solid transparent; }
+#scorch { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* Scorch moods */
+#scorch .eyes-open, #scorch .eyes-happy, #scorch .fire, #scorch .brows { display: none; }
+#scorch[data-mood="idle"] .eyes-happy, #scorch[data-mood="happy"] .eyes-happy { display: block; }
+#scorch[data-mood="alert"] .eyes-open, #scorch[data-mood="alert"] .brows, #scorch[data-mood="alert"] .fire, #scorch[data-mood="scan"] .eyes-open { display: block; }
+#scorch .head { transform-box: fill-box; transform-origin: 50% 90%; }
+#scorch .wing-l, #scorch .wing-r { transform-box: fill-box; }
+#scorch .wing-l { transform-origin: 100% 40%; } #scorch .wing-r { transform-origin: 0 40%; }
+@media (prefers-reduced-motion: no-preference) {
+  #scorch .all { animation: breathe 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  #scorch[data-mood="scan"] .head { animation: sniff .7s ease-in-out infinite; }
+  #scorch[data-mood="alert"] .wing-l { animation: flap-l .5s ease-in-out infinite alternate; }
+  #scorch[data-mood="alert"] .wing-r { animation: flap-r .5s ease-in-out infinite alternate; }
+  #scorch[data-mood="happy"] .all { animation: hop .6s ease-in-out 3; }
+  #scorch .fire path { animation: flicker .28s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 100% 50%; }
+  #scorch .fire path:nth-child(2) { animation-delay: -.1s; }
+  #scorch .fire path:nth-child(3) { animation-delay: -.2s; }
+  .find.fresh { animation: drop .28s ease-out; }
+}
+@keyframes breathe { 50% { transform: scale(1.012, .985); } }
+@keyframes sniff { 50% { transform: translateY(5px) rotate(-5deg); } }
+@keyframes flap-l { to { transform: rotate(9deg); } }
+@keyframes flap-r { to { transform: rotate(-9deg); } }
+@keyframes hop { 50% { transform: translateY(-12px); } }
+@keyframes flicker { to { transform: scaleX(1.18) scaleY(.82); } }
+@keyframes drop { from { transform: translateY(-6px); opacity: .3; } }
+
+/* steps */
+.alt { background: var(--bg-2); }
+.steps { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 4vw, 44px); }
+.steps li { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.steps .num { font: 400 2.6rem/1 var(--display); color: var(--emerald); }
+.steps p { color: var(--dim); }
+
+/* smell table */
+.scroll { overflow-x: auto; margin-top: 30px; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; }
+th { text-align: left; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--emerald); padding: 0 16px 10px 0; }
+td { border-top: 1px solid var(--line); padding: 13px 16px 13px 0; vertical-align: top; }
+td:first-child { font-weight: 600; width: 58%; }
+td:last-child { color: var(--dim); font-size: .94rem; }
+.places { margin-top: 26px; color: var(--dim); max-width: 74ch; }
+
+/* privacy */
+.two { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(26px, 5vw, 64px); align-items: start; }
+.leaves { display: grid; gap: 0; margin: 0; min-width: 0; }
+.leaves div { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr); gap: 4px 18px; border-top: 1px solid var(--line); padding: 13px 0; }
+.leaves dt { font-weight: 800; }
+.leaves dd { margin: 0; color: var(--dim); }
+
+/* limits */
+.limits { background: var(--cream); color: var(--ink); }
+.limits h2 { color: #0d5c31; }
+.limits .wrap { display: grid; gap: 16px; }
+.limits p { max-width: 68ch; }
+.limits strong { font-weight: 800; }
+
+/* cta */
+.cta .wrap { display: grid; gap: 18px; justify-items: start; }
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mail a { font: 600 1.05rem var(--mono); overflow-wrap: anywhere; }
+footer { border-top: 1px solid var(--line); padding-block: 22px; color: var(--dim); font-size: .88rem; }
+footer .wrap { display: grid; gap: 4px; }
+
+@media (max-width: 880px) {
+  .hero-grid, .two, .steps { grid-template-columns: minmax(0, 1fr); }
+  .finds { min-height: 0; }
+}
+@media (max-width: 600px) {
+  table { min-width: 0; }
+  thead { display: none; }
+  tr, td { display: block; }
+  tr { border-top: 1px solid var(--line); padding-block: 12px; }
+  td, td:first-child { border: 0; padding: 0; width: auto; }
+  td:last-child { margin-top: 2px; }
+}
+@media (max-width: 480px) {
+  .leaves div { grid-template-columns: minmax(0, 1fr); }
+  .lair { grid-template-columns: minmax(0, 1fr) 150px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero band">
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="#top" id="top"><img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='2' y='2' width='60' height='60' rx='14' fill='%230b1d14' stroke='%233fe07f' stroke-width='3'/><path d='M32 8c4 10 8 14 9 22l7-8c3 12 3 24-2 30-8 5-20 5-28 0-5-6-5-18-2-30l7 8c1-8 5-12 9-22z' fill='%232fd870'/><path d='M12 36c8-9 32-9 40 0-8 9-32 9-40 0z' fill='%2307140e'/><circle cx='32' cy='36' r='7' fill='%23d8f76a'/><ellipse cx='32' cy='36' rx='2' ry='6.5' fill='%2307140e'/></svg>" alt="" width="36" height="36">HELLSCAN</a>
+      <nav aria-label="Page sections">
+        <a href="#how">How it works</a>
+        <a href="#smells">What it catches</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#get">Get it</a>
+      </nav>
+    </header>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Emerald hellfire · PC guardian</div>
+        <h1>Your PC has a dragon now.</h1>
+        <p>Hellscan is a security companion for Windows. Scorch, a small emerald dragon, lives in the corner of your screen, checks what starts with your PC, and sniffs every new download.</p>
+        <div class="actions">
+          <a class="btn" href="#get">Get early access</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+        <p class="note">Works alongside Windows Security. Scans run on your PC.</p>
+      </div>
+
+      <div class="stage">
+        <div class="tag">Demo with made-up files. Nothing on your computer is scanned.</div>
+        <div class="app">
+          <div class="app-top">
+            <div class="app-title">HELLSCAN<small>guarded by Scorch</small></div>
+            <button class="btn" id="scan" type="button">SCAN</button>
+          </div>
+          <div class="tally" aria-live="polite">
+            <span class="t"><span id="nT">0</span> threats</span>
+            <span class="s"><span id="nS">0</span> suspicious</span>
+            <span class="c"><span id="nC">0</span> clean</span>
+            <span class="n">(<span id="nN">0</span> things checked)</span>
+          </div>
+          <ul class="finds" id="finds"></ul>
+          <div class="detail" id="detail"></div>
+        </div>
+        <div class="lair">
+          <div class="bubble" id="bubble" aria-live="polite"></div>
+          <svg id="scorch" data-mood="alert" viewBox="0 0 300 250" role="img" aria-label="Scorch, a small green dragon">
+            <g class="all">
+              <path d="M226 214c34 6 52-10 44-38-3 14-14 22-36 18z" fill="#1a9e55" stroke="#07140e" stroke-width="3"/>
+              <polygon class="wing-l" points="136,122 60,160 82,210 104,194 136,190" fill="#128a48" stroke="#07140e" stroke-width="3"/>
+              <polygon class="wing-r" points="224,122 298,160 276,210 254,194 224,190" fill="#128a48" stroke="#07140e" stroke-width="3"/>
+              <ellipse cx="180" cy="176" rx="50" ry="58" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+              <ellipse cx="180" cy="182" rx="30" ry="42" fill="#c8f09a" stroke="#07140e" stroke-width="2"/>
+              <path d="M155 166h50M152 182h56M155 198h50" stroke="#8fd377" stroke-width="3" fill="none"/>
+              <ellipse cx="140" cy="172" rx="10" ry="19" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+              <ellipse cx="220" cy="172" rx="10" ry="19" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+              <ellipse cx="150" cy="232" rx="23" ry="11" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+              <ellipse cx="210" cy="232" rx="23" ry="11" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+              <path d="M136 241l5-8 5 8 5-8 5 8zM196 241l5-8 5 8 5-8 5 8z" fill="#fbf0e1"/>
+              <g class="head">
+                <polygon points="146,50 132,8 164,38" fill="#fbf0e1" stroke="#07140e" stroke-width="3"/>
+                <polygon points="214,50 228,8 196,38" fill="#fbf0e1" stroke="#07140e" stroke-width="3"/>
+                <ellipse cx="180" cy="80" rx="52" ry="44" fill="#22b866" stroke="#07140e" stroke-width="3"/>
+                <ellipse cx="146" cy="93" rx="10" ry="6" fill="#f2a0a0" opacity=".7"/>
+                <ellipse cx="214" cy="93" rx="10" ry="6" fill="#f2a0a0" opacity=".7"/>
+                <g class="eyes-happy" fill="none" stroke="#07140e" stroke-width="4" stroke-linecap="round">
+                  <path d="M150 78q11-12 20 0M190 78q10-12 20 0"/>
+                </g>
+                <g class="eyes-open">
+                  <circle cx="160" cy="74" r="13" fill="#d8f76a" stroke="#07140e" stroke-width="3"/>
+                  <circle cx="200" cy="74" r="13" fill="#d8f76a" stroke="#07140e" stroke-width="3"/>
+                  <ellipse cx="160" cy="74" rx="3.5" ry="11" fill="#07140e"/>
+                  <ellipse cx="200" cy="74" rx="3.5" ry="11" fill="#07140e"/>
+                </g>
+                <path class="brows" d="M144 58l28 8M216 58l-28 8" stroke="#07140e" stroke-width="5" stroke-linecap="round"/>
+                <path d="M166 101q14 11 28 0" fill="none" stroke="#07140e" stroke-width="3.5" stroke-linecap="round"/>
+              </g>
+              <g class="fire">
+                <path d="M165 104C130 78 70 84 6 100c34 4 24 10 8 22 56 4 116 8 151-18z" fill="#128a48" opacity=".8"/>
+                <path d="M165 104c-30-16-70-12-107-2 22 4 18 8 8 14 34 2 72 6 99-12z" fill="#2fd870"/>
+                <path d="M165 104c-20-8-40-7-57-1 17 5 37 9 57 1z" fill="#d8f76a"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="band alt" id="how">
+  <div class="wrap">
+    <h2>From bad smell to locked vault</h2>
+    <ol class="steps">
+      <li>
+        <div class="num" aria-hidden="true">1</div>
+        <h3>Scorch flags it</h3>
+        <p>Right-click the dragon to scan. A background watcher checks anything new in Downloads within a few seconds. Every finding comes with the plain-English reasons behind it.</p>
+      </li>
+      <li>
+        <div class="num" aria-hidden="true">2</div>
+        <h3>You get a second opinion</h3>
+        <p>Look up the file's fingerprint on VirusTotal and MalwareBazaar, or ask Claude to read the item and answer with a verdict: safe, suspicious or malicious. Both are optional and need your own API keys.</p>
+      </li>
+      <li>
+        <div class="num" aria-hidden="true">3</div>
+        <h3>It goes in the vault</h3>
+        <p>Quarantine moves the file to Hellscan's vault and renames it so it can't run. A log records where it came from, so you can put it back if Scorch got it wrong.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="smells">
+  <div class="wrap">
+    <h2>What sets off the nose</h2>
+    <p class="lede" style="margin-top:14px">Malware has habits. Hellscan looks for those habits in the places programs use to stay on your PC.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th scope="col">The smell</th><th scope="col">Where it shows up</th></tr></thead>
+        <tbody>
+          <tr><td>Fake double extensions, like <code>invoice.pdf.exe</code></td><td>Downloads, Desktop and other loose files</td></tr>
+          <tr><td>Hidden, base64-encoded PowerShell commands</td><td>Startup entries and scheduled tasks</td></tr>
+          <tr><td>Programs launching from a Temp or Public folder</td><td>Startup entries and scheduled tasks</td></tr>
+          <tr><td>Automatic launches through <code>wscript</code>, <code>cscript</code> or <code>mshta</code></td><td>Startup entries and scheduled tasks</td></tr>
+          <tr><td>Unsigned programs sitting loose in system folders</td><td>AppData\Roaming, ProgramData, Startup folders</td></tr>
+          <tr><td><code>.scr</code> and <code>.pif</code> files posing as something else</td><td>Downloads, Desktop, Temp</td></tr>
+          <tr><td>Names that smell like a crack, cheat or keygen</td><td>Downloads, Desktop, Temp</td></tr>
+          <tr><td>Startup entries pointing to a file that's gone</td><td>Registry and Startup folders. Usually harmless leftovers, so Scorch just tells you.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="places"><strong>Where Scorch patrols:</strong> Run and RunOnce registry keys, Startup folders, non-Microsoft scheduled tasks, Downloads, Temp, Desktop, the Public folder, AppData\Roaming and ProgramData.</p>
+  </div>
+</section>
+
+<section class="band alt" id="privacy">
+  <div class="wrap two">
+    <div class="stack">
+      <h2>Your hoard stays yours</h2>
+      <p class="lede">Scanning happens on your PC. Hellscan only contacts an outside service when you press the button for it, using keys you added yourself.</p>
+    </div>
+    <dl class="leaves">
+      <div><dt>A scan</dt><dd>Nothing leaves your PC.</dd></div>
+      <div><dt>Check reputation</dt><dd>Sends the file's SHA-256 fingerprint to VirusTotal and MalwareBazaar.</dd></div>
+      <div><dt>Ask Claude</dt><dd>Sends the item's name and command to Anthropic's API. For scripts, it also sends the first 12 KB of the file.</dd></div>
+      <div><dt>Your API keys</dt><dd>Encrypted to your Windows login with DPAPI and stored on your PC.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="band limits" id="limits">
+  <div class="wrap">
+    <h2>Keep Windows Security on</h2>
+    <p><strong>Hellscan is a second pair of eyes.</strong> It finds suspicious patterns and helps you understand them. It doesn't block programs as they run, and it can't promise to catch everything, so it won't replace a full antivirus engine.</p>
+    <p>A flag means something deserves a look. It doesn't prove a file is malware. Plenty of honest programs are unsigned, which is why Scorch shows his reasons and leaves the decision to you.</p>
+  </div>
+</section>
+
+<section class="band cta" id="get">
+  <div class="wrap">
+    <h2>Adopt a dragon</h2>
+    <p class="lede">Hellscan is in early access for Windows. Email us and we'll get you a build.</p>
+    <div class="mail">
+      <a href="mailto:zotixgameshop@gmail.com?subject=Hellscan%20early%20access">zotixgameshop@gmail.com</a>
+      <button class="btn ghost" id="copy" type="button">Copy address</button>
+    </div>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap">
+    <div>&copy; 2026 ZotixSoft LLC. Hellscan is a ZotixSoft product.</div>
+    <div>Claude is a trademark of Anthropic. VirusTotal and MalwareBazaar are the property of their respective owners. Hellscan isn't affiliated with or endorsed by them.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var SAMPLE = [
+    { id: 'a', name: 'Invoice_4471.pdf.exe', where: 'Downloads', sev: 2,
+      path: 'C:\\Users\\Sample\\Downloads\\Invoice_4471.pdf.exe',
+      why: ['Fake double extension (.pdf.exe) to look like a document', 'Program is not digitally signed'] },
+    { id: 'b', name: 'WinUpdateHelper', where: 'Startup (registry)', sev: 2,
+      path: 'powershell.exe -w hidden -encodedcommand SQBFAFgA...',
+      why: ['Runs a hidden, base64-encoded PowerShell command'] },
+    { id: 'c', name: 'game_keygen.exe', where: 'Desktop', sev: 1,
+      path: 'C:\\Users\\Sample\\Desktop\\game_keygen.exe',
+      why: ['Name smells like a crack/cheat/keygen (top malware bait)'] },
+    { id: 'd', name: 'OldPrinterTool', where: 'Startup (registry)', sev: 0,
+      path: 'C:\\Program Files\\OldPrinter\\tray.exe',
+      why: ["Points to a file that doesn't exist anymore"] },
+    { id: 'e', name: 'NotesApp Updater', where: 'Scheduled task', sev: 0,
+      path: 'C:\\Program Files\\NotesApp\\update.exe', why: [] },
+    { id: 'f', name: 'AudioControl', where: 'Startup folder', sev: 0,
+      path: 'C:\\Program Files\\AudioControl\\panel.exe', why: [] }
+  ];
+  var LABEL = { 2: 'THREAT', 1: 'SUSPICIOUS', 0: 'CLEAN' };
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var el = function (id) { return document.getElementById(id); };
+  var scorch = el('scorch'), bubble = el('bubble'), finds = el('finds'), detail = el('detail'), scanBtn = el('scan');
+  var shown = SAMPLE.slice(), vault = {}, picked = 'a', scanning = false, timer = null;
+
+  function say(mood, line) { scorch.setAttribute('data-mood', mood); bubble.textContent = line; }
+  function make(tag, text) { var n = document.createElement(tag); if (text) n.textContent = text; return n; }
+
+  function tally() {
+    var open = shown.filter(function (f) { return !vault[f.id]; });
+    var count = function (s) { return open.filter(function (f) { return f.sev === s; }).length; };
+    el('nT').textContent = count(2);
+    el('nS').textContent = count(1);
+    el('nC').textContent = count(0);
+    el('nN').textContent = shown.length;
+  }
+
+  function renderList(fresh) {
+    finds.textContent = '';
+    shown.forEach(function (f) {
+      var li = make('li'), b = make('button');
+      b.type = 'button';
+      b.className = 'find sev' + f.sev + (vault[f.id] ? ' vault' : '') + (fresh === f.id ? ' fresh' : '');
+      b.setAttribute('aria-pressed', String(picked === f.id));
+      b.appendChild(make('b', f.name));
+      b.appendChild(make('i', vault[f.id] ? 'VAULT' : LABEL[f.sev]));
+      b.appendChild(make('span', f.where));
+      b.disabled = scanning;
+      b.addEventListener('click', function () { picked = f.id; render(); });
+      li.appendChild(b);
+      finds.appendChild(li);
+    });
+  }
+
+  function renderDetail() {
+    detail.textContent = '';
+    if (scanning) { detail.appendChild(make('h3', 'Nose to the ground...')); return; }
+    var f = shown.filter(function (x) { return x.id === picked; })[0];
+    if (!f) return;
+    detail.appendChild(make('h3', 'What my nose picked up:'));
+    var ul = make('ul');
+    (f.why.length ? f.why : ['Nothing weird. Smells normal.']).forEach(function (w) { ul.appendChild(make('li', w)); });
+    detail.appendChild(ul);
+    detail.appendChild(make('code', f.path));
+    if (f.sev > 0 && !vault[f.id]) {
+      var q = make('button', 'Quarantine');
+      q.type = 'button'; q.className = 'btn';
+      q.addEventListener('click', function () { lockUp(f); });
+      detail.appendChild(q);
+    }
+  }
+
+  function render(fresh) { tally(); renderList(fresh); renderDetail(); }
+
+  function lockUp(f) {
+    vault[f.id] = true;
+    var left = SAMPLE.filter(function (x) { return x.sev > 0 && !vault[x.id]; });
+    var next = left.filter(function (x) { return x.sev === 2; })[0] || left[0];
+    if (next) {
+      picked = next.id;
+      say(next.sev === 2 ? 'alert' : 'idle', 'Locked ' + f.name + ' in my vault. ' + left.length + ' more to go.');
+    } else {
+      say('happy', 'All locked up. This sample hoard is safe. *puffs smoke ring*');
+    }
+    render();
+  }
+
+  function finish() {
+    scanning = false; scanBtn.disabled = false; scanBtn.textContent = 'SCAN';
+    picked = 'a';
+    say('alert', 'Checked 6 things on this sample PC. Two smell bad. Click one, then quarantine it.');
+    render();
+  }
+
+  function runScan() {
+    clearTimeout(timer);
+    vault = {}; shown = []; picked = null; scanning = true;
+    scanBtn.disabled = true; scanBtn.textContent = 'SNIFFING';
+    say('scan', 'On it. Nose to the ground.');
+    render();
+    if (calm) { shown = SAMPLE.slice(); finish(); return; }
+    var i = 0;
+    (function step() {
+      if (i >= SAMPLE.length) { finish(); return; }
+      shown.push(SAMPLE[i]);
+      render(SAMPLE[i].id);
+      i++;
+      timer = setTimeout(step, 340);
+    })();
+  }
+
+  scanBtn.addEventListener('click', runScan);
+  say('alert', 'Checked 6 things on this sample PC. Two smell bad. Click one, then quarantine it.');
+  render();
+
+  var copy = el('copy');
+  copy.addEventListener('click', function () {
+    var done = function (msg) { copy.textContent = msg; setTimeout(function () { copy.textContent = 'Copy address'; }, 1800); };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('zotixgameshop@gmail.com').then(function () { done('Copied'); }, function () { done('Select it to copy'); });
+    } else { done('Select it to copy'); }
+  });
+})();
+</script>
+</body>
+</html>
