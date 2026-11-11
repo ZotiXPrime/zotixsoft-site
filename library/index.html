@@ -97,6 +97,7 @@ const LIB=[
   {t:"Ember Pillar 2",c:["#ffb020","#401800"],s:"dev",g:"Waves",d:"A flame swordsman with a golden DESTINY awakening."},
   {t:"SPLURT!",c:["#7be04a","#123008"],s:"dev",g:"Slime brawler",d:"Five levels of slime-on-slime violence."},
   {t:"Crowsworn",c:["#556","#111"],s:"dev",g:"Puzzle action",d:"A samurai and his spirit crow."},
+  {t:"FLEECED!",v:"fleeced-clip",c:["#f5e6c8","#5a3a1a"],s:"dev",g:"Stealth heist · SDL3",yt:"BBEPznCH1vk",d:"Slick the fox steals sheep from under the beaks of goose guards across three timed levels: Goosewater by night, Clover Gulch and Mutton Mesa. Sheep vacuum, rewinder, wool bombs and a jetpack. Coming to itch.io."},
   {t:"The Bender",c:["#4ad0ff","#2a0a00"],s:"dev",g:"Puzzle",d:"Real-time fire, ice and earth bending puzzles."}]},
  {row:"Platformers",games:[
   {t:"HEAD CASE",c:["#ff7a2a","#2a0a20"],s:"dev",g:"Platformer",d:"Fire your own head. Three stages, one boss."},
@@ -123,9 +124,9 @@ const LIB=[
   {t:"Aura Aura Aura",c:["#ff2aff","#2affff"],s:"dev",g:"Roblox PvP",d:"RGB auras across six realms."},
   {t:"Egg Overload!!",c:["#ffe02a","#ff2a8a"],s:"dev",g:"Roblox",d:"An overly colourful egg-grab splat-fest."}]},
 ];
-const ART={"Emerald Burst":"emerald-burst","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","Mach Line":"mach-line"};
+const ART={"Emerald Burst":"emerald-burst","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","FLEECED!":"fleeced","Mach Line":"mach-line"};
 const art=g=>g.a||ART[g.t];const bgOf=g=>(art(g)?`url(art/${art(g)}.jpg) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
-const MAIN=["Emerald Burst","Silver Sol","Hakuya: Squad","Maskbound","God of Pork","Burst League","Bruise","Ember Pillar 2","SPLURT!","The Bender","Gloam","SLAMFIRE","Dirk Kaboom","Xenith: OverLoad","Midnight Takedown","Ball Blitz","Target Practice Island","Kage Rising","Fire Ice Ball"];
+const MAIN=["Emerald Burst","Silver Sol","Hakuya: Squad","Maskbound","God of Pork","Burst League","Bruise","Ember Pillar 2","SPLURT!","The Bender","Gloam","SLAMFIRE","Dirk Kaboom","Xenith: OverLoad","Midnight Takedown","Ball Blitz","Target Practice Island","Kage Rising","Fire Ice Ball","FLEECED!"];
 const rowsEl=document.getElementById('rowsInner');let R=0,C=[];const total=LIB.reduce((a,r)=>a+r.games.length,0);
 const badge={live:'<span class="badge live">LIVE</span>',soon:'<span class="badge">COMING SOON</span>',dev:'<span class="badge">IN DEV</span>',film:'<span class="badge" style="color:#e9cf94">▶ FILM</span>'};
 LIB.forEach((row,ri)=>{C[ri]=0;const r=document.createElement('div');r.className='row'+(row.gallery?' gallery':'');r.innerHTML=`<h2>${row.row}</h2><div class="track"></div>`;
