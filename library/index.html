@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOTIXSOFT Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#2ee6d0;--teal2:#0b8f86;--bg:#031414;--ink:#e8fffb;--dim:#7fb8b1}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+#boot{position:fixed;inset:0;background:#000;z-index:50;display:flex;align-items:center;justify-content:center;transition:opacity .8s}
+#boot{background:radial-gradient(circle at 50% 50%,#0a1f1d,#000 60%)}
+.bwrap{position:relative;width:min(900px,90vw);aspect-ratio:900/224}
+.emb{position:absolute;left:0;top:0;height:100%;animation:embIn 1.6s cubic-bezier(.2,1.4,.3,1) both,embSlide .9s 1.7s cubic-bezier(.6,0,.2,1) both;filter:drop-shadow(0 0 30px #8ff8)}
+@keyframes embIn{0%{transform:translateX(min(338px,34vw)) scale(0) rotate(-200deg);opacity:0}100%{transform:translateX(min(338px,34vw)) scale(1) rotate(0);opacity:1}}
+@keyframes embSlide{from{transform:translateX(min(338px,34vw))}to{transform:none}}
+.wm{position:absolute;inset:0;clip-path:inset(0 100% 0 0);animation:wipe .9s 1.75s cubic-bezier(.6,0,.2,1) forwards}
+.wm img{width:100%;height:100%;display:block;filter:drop-shadow(0 0 18px #fff3)}
+.wm::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,#fffc 50%,transparent 60%);background-size:250% 100%;mix-blend-mode:overlay;animation:shine 1.1s 2.8s ease-in-out both;-webkit-mask:url(art/zotixsoft_logo_transparent.png) center/100% 100%;mask:url(art/zotixsoft_logo_transparent.png) center/100% 100%}
+@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+@keyframes shine{from{background-position:150% 0}to{background-position:-50% 0}}
+.tag{position:absolute;left:0;right:0;top:115%;text-align:center;color:#bfeee8;letter-spacing:.6em;font-size:clamp(11px,1.6vw,16px);opacity:0;animation:fade .8s 3.2s forwards}
+@keyframes fade{to{opacity:1}}
+#boot .skip{position:absolute;bottom:24px;right:28px;color:#9ff;opacity:.6;font-size:14px;letter-spacing:.1em}
+#bg{position:fixed;inset:0;transition:background .6s;background:radial-gradient(ellipse at 70% 20%,#0d4d48,#031414 70%)}
+#bg::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,#ffffff05 0 1px,transparent 1px 3px)}
+header{position:relative;display:flex;align-items:center;justify-content:space-between;padding:22px 48px}
+.logo{font-weight:800;letter-spacing:.25em;font-size:20px;position:relative;z-index:1;color:var(--teal);text-shadow:0 0 18px #2ee6d088}
+.status{display:flex;gap:22px;color:var(--dim);font-size:14px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:#4f4;display:inline-block;margin-right:6px;box-shadow:0 0 8px #4f4}
+#hero{position:relative;z-index:1;padding:8px 48px 18px;height:190px}
+#hero h1{margin:0;font-family:"Cormorant Garamond",serif;font-size:58px;font-weight:700;letter-spacing:.01em;text-shadow:0 4px 30px #000}
+#heroVid{position:fixed;top:0;right:0;width:68vw;height:72vh;object-fit:cover;opacity:0;transition:opacity .7s;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%),linear-gradient(0deg,transparent,#000 30%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 35%);pointer-events:none}
+#heroVid.on{opacity:.9}
+.plaque{display:inline-block;margin-top:12px;padding:6px 12px;border:1px solid #d9b46a88;color:#e9cf94;font-size:12px;letter-spacing:.18em;text-transform:uppercase;background:#0006}
+.row.gallery h2{color:#e9cf94;font-family:"Cormorant Garamond",serif;font-size:22px;letter-spacing:.12em;text-transform:none}
+.row.gallery .tile{flex-basis:260px;height:146px;border:1px solid #d9b46a55}
+.row.gallery .tile.sel{box-shadow:0 0 0 3px #e9cf94,0 0 34px #e9cf9488}
+#hero .meta{color:var(--teal);margin:6px 0 10px;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+#hero p{max-width:640px;color:#cfeee9;margin:0;line-height:1.45}
+#rows{position:relative;z-index:1;height:calc(100% - 300px);overflow:hidden}
+#rowsInner{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.row{padding:6px 0 10px}
+.row h2{margin:0 48px 8px;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.row.active h2{color:var(--teal)}
+.track{display:flex;gap:16px;padding:10px 48px;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.tile{flex:0 0 200px;height:112px;border-radius:10px;position:relative;cursor:pointer;transition:transform .18s,box-shadow .18s;display:flex;align-items:flex-end;padding:10px;font-weight:700;font-size:15px;text-shadow:0 2px 6px #000a;overflow:hidden}
+.tile::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#0008)}
+.tile span{position:relative}
+.tile .badge{position:absolute;top:8px;right:8px;font-size:10px;padding:2px 6px;border-radius:4px;background:#000a;letter-spacing:.08em}
+.tile .badge.live{background:var(--teal);color:#012}
+.tile.sel{transform:scale(1.12);box-shadow:0 0 0 3px var(--teal),0 0 28px #2ee6d0aa;z-index:2}
+footer{position:fixed;bottom:0;left:0;right:0;padding:12px 48px;color:var(--dim);font-size:13px;display:flex;gap:26px;background:linear-gradient(transparent,#000c)}
+kbd{border:1px solid var(--dim);border-radius:4px;padding:0 6px;margin-right:4px;font-family:inherit}
+#detail{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:#000b;backdrop-filter:blur(6px)}
+#detail.open{display:flex}
+.card{width:min(760px,92vw);border-radius:16px;overflow:hidden;background:#062221;border:1px solid #2ee6d055;box-shadow:0 0 60px #2ee6d033}
+.card .art{height:240px;display:flex;align-items:flex-end;padding:24px;font-size:42px;font-weight:800;text-shadow:0 3px 10px #000}
+.card .body{padding:20px 24px 24px}
+.card .btns{display:flex;gap:12px;margin-top:18px}
+.btn{padding:10px 20px;border-radius:8px;background:var(--teal);color:#012;font-weight:700;border:0;cursor:pointer;font-size:15px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #fff4}
+#toast{position:fixed;top:80px;right:-360px;width:320px;padding:14px 16px;border-radius:10px;background:#0a2f2c;border:1px solid var(--teal);z-index:30;transition:right .4s}
+#toast.show{right:24px}
+@media (max-width:640px){header,#hero{padding-left:16px;padding-right:16px}.track{padding:10px 16px}.row h2{margin:0 16px 8px}#hero h1{font-size:30px}.tile{flex-basis:150px;height:86px}.status .friends{display:none}}
+</style>
+</head>
+<body>
+<div id="boot"><div class="bwrap"><img class="emb" src="art/zotixsoft_emblem.png" alt=""><div class="wm"><img src="art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT"></div><div class="tag">THE LIBRARY</div></div><div class="skip">PRESS ANY BUTTON TO SKIP</div></div>
+<div id="bg"></div><video id="heroVid" muted loop playsinline></video>
+<header><a class="logo" href="/"><img src="art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT" style="height:30px;display:block"></a><div class="status"><span class="friends"><span class="dot"></span>3 friends online</span><span id="ach">🏆 0</span><span id="clock"></span></div></header>
+<section id="hero"><div class="meta" id="hMeta"></div><h1 id="hTitle"></h1><p id="hDesc"></p><div class="plaque" id="hPlaque"></div></section>
+<div id="rows"><div id="rowsInner"></div></div>
+<footer><span><kbd>←↑→↓</kbd>Browse</span><span><kbd>Enter</kbd>Open</span><span><kbd>Esc</kbd>Back</span><span>🎮 Gamepad supported</span></footer>
+<div id="detail"><div class="card"><div class="art" id="dArt"></div><div class="body"><div class="meta" id="dMeta" style="color:var(--teal);letter-spacing:.12em;font-size:13px;text-transform:uppercase"></div><p id="dDesc" style="line-height:1.5"></p><div class="btns"><button class="btn" id="dPlay"></button><button class="btn ghost" onclick="closeDetail()">Back</button></div></div></div></div>
+<div id="toast"></div>
+<script>
+const LIB=[
+ {row:"Featured",games:[
+  {t:"Emerald Burst",v:"emerald-burst-clip",c:["#0f9b4a","#04331a"],s:"live",g:"Action · PC",d:"Kyro's green transformation brawler. Out now on the Epic Games Store.",cta:"View on Epic",url:"https://store.epicgames.com/p/emerald-burst-c1a6cc"},
+  {t:"Silver Sol",c:["#a9b8d6","#2b3550"],s:"dev",g:"RPG · UE5",d:"Elemental adventure. Sealed Temple dungeon and village, playable in Unreal."},
+  {t:"Hakuya: Squad",v:"hakuya-clip",c:["#e8e8f0","#3a1240"],s:"dev",g:"Action · Tag team",d:"A cocky flash-step squad you swap between mid-combo."},
+  {t:"Maskbound",c:["#d48a2a","#3b1a08"],s:"soon",g:"Adventure",d:"Swap masks to repaint the world. N64 soul, modern speed."},
+  {t:"God of Pork",v:"god-of-pork-clip",c:["#e06a8a","#3a0a14"],s:"soon",g:"Action parody",d:"An angry pig with chain blades against the whole pantheon."},
+  {t:"Burst League",c:["#30a0ff","#071a3a"],s:"soon",g:"Sports · Cars",d:"Car soccer starring the Emerald Burst heroes."}]},
+ {row:"The Hakuya Wing",gallery:1,games:[
+  {t:"Hakuya OP",v:"hakuya-op",a:"hakuya-op",c:["#e8e8f0","#3a1240"],s:"film",g:"Anime opening · 0:47",d:"The cel-shaded opening that started it all."},
+  {t:"Sign",v:"hakuya-sign",a:"hakuya-sign",c:["#ccd","#203"],s:"film",g:"Squad opening · 1:52",d:"The full widescreen squad opening."},
+  {t:"Breath of the Titan",v:"hakuya-titan",a:"hakuya-titan",c:["#cba","#210"],s:"film",g:"Short film · 2:52",d:"The squad against a mountain titan, cut to an original song."},
+  {t:"Howl",v:"hakuya-howl",a:"hakuya-howl",c:["#99a","#112"],s:"film",g:"Music video",d:"Hakuya under the moon."},
+  {t:"Family",v:"hakuya-family",a:"hakuya-family",c:["#dcb","#311"],s:"film",g:"Two-song film",d:"The family film."},
+  {t:"Ending",v:"hakuya-ed",a:"hakuya-ed",c:["#bcd","#123"],s:"film",g:"Anime ending · 1:03",d:"The closing credits roll."}]},
+ {row:"Action & Brawlers",games:[
+  {t:"Bruise",c:["#3f6fff","#0a1238"],s:"dev",g:"Smash",d:"A blue brute who rips cars apart and wears them as armour. Insurance not included."},
+  {t:"GUTPUNCH!",c:["#e33","#300"],s:"dev",g:"Beat 'em up",d:"Gory comedy belt-scroller."},
+  {t:"Ember Pillar 2",c:["#ffb020","#401800"],s:"dev",g:"Waves",d:"A flame swordsman with a golden DESTINY awakening."},
+  {t:"SPLURT!",c:["#7be04a","#123008"],s:"dev",g:"Slime brawler",d:"Five levels of slime-on-slime violence."},
+  {t:"Crowsworn",c:["#556","#111"],s:"dev",g:"Puzzle action",d:"A samurai and his spirit crow."},
+  {t:"The Bender",c:["#4ad0ff","#2a0a00"],s:"dev",g:"Puzzle",d:"Real-time fire, ice and earth bending puzzles."}]},
+ {row:"Platformers",games:[
+  {t:"HEAD CASE",c:["#ff7a2a","#2a0a20"],s:"dev",g:"Platformer",d:"Fire your own head. Three stages, one boss."},
+  {t:"Shell Yeah!",c:["#3ec46d","#0c2a14"],s:"soon",g:"Platformer",d:"A hammer-wielding turtle."},
+  {t:"Gloopi 64",c:["#ff8ad8","#2a0a30"],s:"dev",g:"3D platformer",d:"Squishy 64-bit hopping."},
+  {t:"Moonwing",c:["#b0a0ff","#0c0a30"],s:"dev",g:"Platformer",d:"Fly by moonlight."}]},
+ {row:"Shooters",games:[
+  {t:"SLAMFIRE",c:["#ff5a1a","#200800"],s:"dev",g:"Horde FPS",d:"Rust + wgpu horde shooter."},
+  {t:"Dirk Kaboom",c:["#ffd23a","#301800"],s:"dev",g:"Retro FPS",d:"An ice bow, rainbow guns and one-liners."},
+  {t:"Xenith: OverLoad",c:["#a04aff","#10042a"],s:"dev",g:"Plasma FPS",d:"Ringworld plasma combat."},
+  {t:"Gloam",c:["#ffaa40","#05050f"],s:"dev",g:"Cave action",d:"Radiance-cascade lighting in a cave you can carve."}]},
+ {row:"Racers",games:[
+  {t:"Midnight Takedown",c:["#ff3a8a","#0a0420"],s:"dev",g:"Arcade racer",d:"Night-time takedown racing."},
+  {t:"Ball Blitz",c:["#2ee6d0","#04201e"],s:"dev",g:"Car soccer",d:"Energy goals on a mirror pitch."},
+  {t:"Mach Line",c:["#ddd","#223"],s:"dev",g:"Racer",d:"Speed and nothing else."}]},
+ {row:"Fortnite Islands",games:[
+  {t:"Target Practice Island",c:["#ff4a4a","#1a0a3a"],s:"live",g:"UEFN · 1883-3342-0888",d:"The top earner. Go hit some targets.",cta:"Copy island code",code:"1883-3342-0888"},
+  {t:"Shadow Realm",c:["#6a2aff","#05001a"],s:"soon",g:"UEFN party",d:"Playtested and loved."},
+  {t:"Zotix Mega Ramp",c:["#ffcc00","#2a1a00"],s:"soon",g:"UEFN party",d:"Big ramp. Bigger air."},
+  {t:"Pillar Wars",c:["#30c0ff","#081a2a"],s:"dev",g:"UEFN",d:"Fight on top of pillars."}]},
+ {row:"Roblox",games:[
+  {t:"Kage Rising",c:["#222","#a00"],s:"live",g:"Roblox",d:"Shinobi battleground. Live now.",cta:"Find on Roblox",url:"https://www.roblox.com/discover?Keyword=Kage%20Rising"},
+  {t:"Fire Ice Ball",c:["#ff5a1a","#1a7aff"],s:"live",g:"Roblox · 4v4",d:"4v4 ball where fire and ice flip.",cta:"Find on Roblox",url:"https://www.roblox.com/discover?Keyword=Fire%20Ice%20Ball"},
+  {t:"Aura Aura Aura",c:["#ff2aff","#2affff"],s:"dev",g:"Roblox PvP",d:"RGB auras across six realms."},
+  {t:"Egg Overload!!",c:["#ffe02a","#ff2a8a"],s:"dev",g:"Roblox",d:"An overly colourful egg-grab splat-fest."}]},
+];
+const ART={"Emerald Burst":"emerald-burst","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","Mach Line":"mach-line"};
+const art=g=>g.a||ART[g.t];const bgOf=g=>(art(g)?`url(art/${art(g)}.jpg) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
+const rowsEl=document.getElementById('rowsInner');let R=0,C=[];const total=LIB.reduce((a,r)=>a+r.games.length,0);
+const badge={live:'<span class="badge live">LIVE</span>',soon:'<span class="badge">COMING SOON</span>',dev:'<span class="badge">IN DEV</span>',film:'<span class="badge" style="color:#e9cf94">▶ FILM</span>'};
+LIB.forEach((row,ri)=>{C[ri]=0;const r=document.createElement('div');r.className='row'+(row.gallery?' gallery':'');r.innerHTML=`<h2>${row.row}</h2><div class="track"></div>`;
+ row.games.forEach((g,gi)=>{const t=document.createElement('div');t.className='tile';t.style.background=bgOf(g);t.innerHTML=badge[g.s]+`<span>${g.t}</span>`;
+  t.onmouseenter=()=>{R=ri;C[ri]=gi;render(true)};t.onclick=()=>{R=ri;C[ri]=gi;render();openDetail()};r.querySelector('.track').appendChild(t)});rowsEl.appendChild(r)});
+const seen=new Set();
+function cur(){return LIB[R].games[C[R]]}
+function render(noScroll){document.querySelectorAll('.row').forEach((r,ri)=>{r.classList.toggle('active',ri===R);r.querySelectorAll('.tile').forEach((t,gi)=>t.classList.toggle('sel',ri===R&&gi===C[ri]));
+  const w=innerWidth<640?166:216;r.querySelector('.track').style.transform=`translateX(${-Math.max(0,C[ri]-1)*w}px)`});
+ const rowH=document.querySelector('.row').offsetHeight;rowsEl.style.transform=`translateY(${-Math.max(0,R-1)*rowH}px)`;
+ const g=cur();hTitle.textContent=g.t;hMeta.textContent=g.g+' · '+{live:'Available now',soon:'Coming soon',dev:'In development',film:'Now showing'}[g.s];hPlaque.textContent='Gallery No. '+String(LIB.slice(0,R).reduce((a,r)=>a+r.games.length,0)+C[R]+1).padStart(3,'0')+' · Arvin Zotix';hPlaque.style.display='inline-block';setVid(g);hDesc.textContent=g.d;
+ bg.style.background=(art(g)?`linear-gradient(90deg,#031414 30%,#031414cc 55%,#03141455),url(art/${art(g)}.jpg) right/cover,`:'')+`radial-gradient(ellipse at 75% 15%,${g.c[0]}55,${g.c[1]}66 35%,#031414 75%)`;
+ seen.add(g.t);ach.textContent='🏆 '+seen.size+'/'+total;if(seen.size===total)toast('🏆 Achievement unlocked: Window Shopper');}
+let vt;function setVid(g){clearTimeout(vt);heroVid.classList.remove('on');vt=setTimeout(()=>{if(!g.v){heroVid.removeAttribute('src');return}if(!heroVid.src.endsWith(g.v+'.mp4'))heroVid.src='clips/'+g.v+'.mp4';heroVid.play().catch(()=>{});heroVid.classList.add('on')},450)}
+let ctx;function blip(f=660){try{ctx=ctx||new AudioContext();const o=ctx.createOscillator(),v=ctx.createGain();o.type='triangle';o.frequency.value=f;v.gain.setValueAtTime(.06,ctx.currentTime);v.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.09);o.connect(v).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.1)}catch(e){}}
+function move(dr,dc){if(detail.classList.contains('open'))return;R=Math.max(0,Math.min(LIB.length-1,R+dr));C[R]=Math.max(0,Math.min(LIB[R].games.length-1,C[R]+dc));blip(dr?520:700);render()}
+function openDetail(){const g=cur();dArt.textContent=g.t;dArt.style.background=bgOf(g);dMeta.textContent=g.g;dDesc.textContent=g.d;dPlay.textContent=g.cta||(g.s==='film'?'▶ Watch':g.s==='dev'?'Notify me':'Wishlist');
+ dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};detail.classList.add('open');blip(880)}
+function closeDetail(){detail.classList.remove('open');blip(400)}
+let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),2600)}
+const toastEl=document.getElementById('toast');
+let booted=false;function endBoot(skipped){if(booted)return;booted=true;boot.style.opacity=0;setTimeout(()=>boot.remove(),800);render();if(skipped)setTimeout(()=>toast("…you can't wait, huh."),900);try{localStorage.setItem('zb','1')}catch(e){}}
+try{if(localStorage.getItem('zb')&&!location.hash.includes('boot'))endBoot(false)}catch(e){}
+setTimeout(()=>endBoot(false),5200);
+addEventListener('keydown',e=>{if(!booted)return endBoot(true);const k=e.key;
+ if(k==='ArrowRight')move(0,1);else if(k==='ArrowLeft')move(0,-1);else if(k==='ArrowDown')move(1,0);else if(k==='ArrowUp')move(-1,0);
+ else if(k==='Enter')detail.classList.contains('open')?dPlay.click():openDetail();else if(k==='Escape'||k==='Backspace')closeDetail();else return;e.preventDefault()});
+boot.addEventListener('click',()=>endBoot(true));
+addEventListener('wheel',e=>{if(booted&&!detail.classList.contains('open'))move(e.deltaY>0?1:-1,0)},{passive:true});
+setInterval(()=>clock.textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),1000);clock.textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+let last={},rep=0;(function pad(){const p=navigator.getGamepads?.()[0];if(p){const b=i=>p.buttons[i]?.pressed,ax=p.axes,now=performance.now();
+ const s={r:b(15)||ax[0]>.5,l:b(14)||ax[0]<-.5,d:b(13)||ax[1]>.5,u:b(12)||ax[1]<-.5,a:b(0),b:b(1)};
+ if(!booted&&Object.values(s).some(Boolean))endBoot(true);else{for(const k of['r','l','d','u'])if(s[k]&&(!last[k]||now>rep)){move(k==='d'?1:k==='u'?-1:0,k==='r'?1:k==='l'?-1:0);rep=now+(last[k]?120:350)}
+ if(s.a&&!last.a)detail.classList.contains('open')?dPlay.click():openDetail();if(s.b&&!last.b)closeDetail()}last=s}requestAnimationFrame(pad)})();
+addEventListener('resize',()=>booted&&render());
+</script>
+</body>
+</html>
