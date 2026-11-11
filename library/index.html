@@ -73,7 +73,7 @@ kbd{border:1px solid var(--dim);border-radius:4px;padding:0 6px;margin-right:4px
 <section id="hero"><div class="meta" id="hMeta"></div><h1 id="hTitle"></h1><p id="hDesc"></p><div class="plaque" id="hPlaque"></div></section>
 <div id="rows"><div id="rowsInner"></div></div>
 <footer><span><kbd>←↑→↓</kbd>Browse</span><span><kbd>Enter</kbd>Open</span><span><kbd>Esc</kbd>Back</span><span>🎮 Gamepad supported</span></footer>
-<div id="detail"><div class="card"><div class="art" id="dArt"></div><div class="body"><div class="meta" id="dMeta" style="color:var(--teal);letter-spacing:.12em;font-size:13px;text-transform:uppercase"></div><p id="dDesc" style="line-height:1.5"></p><div class="btns"><button class="btn" id="dPlay"></button><button class="btn ghost" onclick="closeDetail()">Back</button></div></div></div></div>
+<div id="detail"><div class="card"><div class="art" id="dArt"></div><div class="body"><div class="meta" id="dMeta" style="color:var(--teal);letter-spacing:.12em;font-size:13px;text-transform:uppercase"></div><p id="dDesc" style="line-height:1.5"></p><div class="btns"><button class="btn" id="dPlay"></button><a class="btn ghost" id="dPage" style="text-decoration:none">Full page →</a><button class="btn ghost" onclick="closeDetail()">Back</button></div></div></div></div>
 <div id="toast"></div>
 <script>
 const LIB=[
@@ -142,7 +142,7 @@ let vt;function setVid(g){clearTimeout(vt);heroVid.classList.remove('on');vt=set
 let ctx;function blip(f=660){try{ctx=ctx||new AudioContext();const o=ctx.createOscillator(),v=ctx.createGain();o.type='triangle';o.frequency.value=f;v.gain.setValueAtTime(.06,ctx.currentTime);v.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.09);o.connect(v).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.1)}catch(e){}}
 function move(dr,dc){if(detail.classList.contains('open'))return;R=Math.max(0,Math.min(LIB.length-1,R+dr));C[R]=Math.max(0,Math.min(LIB[R].games.length-1,C[R]+dc));blip(dr?520:700);render()}
 function openDetail(){const g=cur();dArt.textContent=g.t;dArt.style.background=bgOf(g);dMeta.textContent=g.g;dDesc.textContent=g.d;dPlay.textContent=g.cta||(g.s==='film'?'▶ Watch':g.s==='dev'?'Notify me':'Wishlist');
- dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};detail.classList.add('open');blip(880)}
+ dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};dPage.href='games/'+g.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.html';detail.classList.add('open');blip(880)}
 function closeDetail(){detail.classList.remove('open');blip(400)}
 let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),2600)}
 const toastEl=document.getElementById('toast');
