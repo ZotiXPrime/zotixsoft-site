@@ -125,6 +125,7 @@ const LIB=[
 ];
 const ART={"Emerald Burst":"emerald-burst","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","Mach Line":"mach-line"};
 const art=g=>g.a||ART[g.t];const bgOf=g=>(art(g)?`url(art/${art(g)}.jpg) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
+const MAIN=["Emerald Burst","Silver Sol","Hakuya: Squad","Maskbound","God of Pork","Burst League","Bruise","Ember Pillar 2","SPLURT!","The Bender","Gloam","SLAMFIRE","Dirk Kaboom","Xenith: OverLoad","Midnight Takedown","Ball Blitz","Target Practice Island","Kage Rising","Fire Ice Ball"];
 const rowsEl=document.getElementById('rowsInner');let R=0,C=[];const total=LIB.reduce((a,r)=>a+r.games.length,0);
 const badge={live:'<span class="badge live">LIVE</span>',soon:'<span class="badge">COMING SOON</span>',dev:'<span class="badge">IN DEV</span>',film:'<span class="badge" style="color:#e9cf94">▶ FILM</span>'};
 LIB.forEach((row,ri)=>{C[ri]=0;const r=document.createElement('div');r.className='row'+(row.gallery?' gallery':'');r.innerHTML=`<h2>${row.row}</h2><div class="track"></div>`;
@@ -142,7 +143,7 @@ let vt;function setVid(g){clearTimeout(vt);heroVid.classList.remove('on');vt=set
 let ctx;function blip(f=660){try{ctx=ctx||new AudioContext();const o=ctx.createOscillator(),v=ctx.createGain();o.type='triangle';o.frequency.value=f;v.gain.setValueAtTime(.06,ctx.currentTime);v.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.09);o.connect(v).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.1)}catch(e){}}
 function move(dr,dc){if(detail.classList.contains('open'))return;R=Math.max(0,Math.min(LIB.length-1,R+dr));C[R]=Math.max(0,Math.min(LIB[R].games.length-1,C[R]+dc));blip(dr?520:700);render()}
 function openDetail(){const g=cur();dArt.textContent=g.t;dArt.style.background=bgOf(g);dMeta.textContent=g.g;dDesc.textContent=g.d;dPlay.textContent=g.cta||(g.s==='film'?'▶ Watch':g.s==='dev'?'Notify me':'Wishlist');
- dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};dPage.href='games/'+g.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.html';detail.classList.add('open');blip(880)}
+ dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};dPage.style.display=MAIN.includes(g.t)?'':'none';dPage.href='games/'+g.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.html';detail.classList.add('open');blip(880)}
 function closeDetail(){detail.classList.remove('open');blip(400)}
 let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),2600)}
 const toastEl=document.getElementById('toast');
