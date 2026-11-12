@@ -79,6 +79,7 @@ kbd{border:1px solid var(--dim);border-radius:4px;padding:0 6px;margin-right:4px
 const LIB=[
  {row:"Featured",games:[
   {t:"Emerald Burst",v:"emerald-burst-clip",c:["#0f9b4a","#04331a"],s:"live",g:"Action · PC",d:"Kyro's green transformation brawler. Out now on the Epic Games Store.",cta:"View on Epic",url:"https://store.epicgames.com/p/emerald-burst-c1a6cc"},
+  {t:"Fangscape",v:"fangscape-clip",c:["#d8233a","#1a0408"],s:"live",g:"Old-school RPG · PC",d:"An old-school, tick-based RPG where you play the vampire. 15 skills, 19 quests, blood magic and an elder dragon. Free for Windows.",cta:"Play free",url:"https://zotixsoft.com/fangscape/"},
   {t:"Silver Sol",c:["#a9b8d6","#2b3550"],s:"dev",g:"RPG · UE5",d:"Elemental adventure. Sealed Temple dungeon and village, playable in Unreal."},
   {t:"Hakuya: Squad",v:"hakuya-clip",c:["#e8e8f0","#3a1240"],s:"dev",g:"Action · Tag team",d:"A cocky flash-step squad you swap between mid-combo."},
   {t:"Maskbound",c:["#d48a2a","#3b1a08"],s:"soon",g:"Adventure",d:"Swap masks to repaint the world. N64 soul, modern speed."},
@@ -124,7 +125,7 @@ const LIB=[
   {t:"Aura Aura Aura",c:["#ff2aff","#2affff"],s:"dev",g:"Roblox PvP",d:"RGB auras across six realms."},
   {t:"Egg Overload!!",c:["#ffe02a","#ff2a8a"],s:"dev",g:"Roblox",d:"An overly colourful egg-grab splat-fest."}]},
 ];
-const ART={"Emerald Burst":"emerald-burst","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","FLEECED!":"fleeced","Mach Line":"mach-line"};
+const ART={"Emerald Burst":"emerald-burst","Fangscape":"fangscape","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","FLEECED!":"fleeced","Mach Line":"mach-line"};
 const art=g=>g.a||ART[g.t];const bgOf=g=>(art(g)?`url(art/${art(g)}.jpg) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
 const MAIN=["Emerald Burst","Silver Sol","Hakuya: Squad","Maskbound","God of Pork","Burst League","Bruise","Ember Pillar 2","SPLURT!","The Bender","Gloam","SLAMFIRE","Dirk Kaboom","Xenith: OverLoad","Midnight Takedown","Ball Blitz","Target Practice Island","Kage Rising","Fire Ice Ball","FLEECED!"];
 const rowsEl=document.getElementById('rowsInner');let R=0,C=[];const total=LIB.reduce((a,r)=>a+r.games.length,0);
