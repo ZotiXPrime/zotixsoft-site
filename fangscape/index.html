@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fangscape | An old-school vampire RPG</title>
+<meta name="description" content="Fangscape is a free old-school, tick-based RPG where you play the vampire. 15 skills, 19 quests, blood magic, legendary capes and an elder dragon. Free for Windows, by ZotixSoft.">
+<meta property="og:title" content="Fangscape: an old-school vampire RPG">
+<meta property="og:description" content="Click-to-move, tick-based, OSRS-style RPG where you're the monster. Free for Windows.">
+<meta property="og:image" content="img/hero.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0710">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Spectral:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0b0710; --night2:#140c18; --night3:#1d1222;
+  --blood:#d8233a; --blood2:#ff4458; --ember:#ff8a2a;
+  --bone:#efe6d8; --mist:#b7a9bd; --dim:#7d6f83;
+  --parch:#d8c79c; --parch2:#c2ae7e; --ink:#2b1d10;
+  --line:rgba(255,255,255,.08);
+  --pix:'Silkscreen',monospace; --serif:'Spectral',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--bone);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(11,7,16,.88);backdrop-filter:blur(10px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;gap:24px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--pix);font-size:20px;color:var(--blood2);letter-spacing:1px}
+.brand img{width:28px;height:28px;image-rendering:pixelated}
+nav ul{display:flex;gap:22px;list-style:none;margin-left:auto;font-size:14px}
+nav ul a{text-decoration:none;color:var(--mist)}
+nav ul a:hover{color:var(--bone)}
+.nav-cta{font-family:var(--pix);font-size:13px;text-decoration:none;background:var(--blood);color:#fff;padding:8px 14px;border-radius:3px;box-shadow:0 0 0 1px #ff6b7c55 inset}
+.nav-cta:hover{background:var(--blood2)}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 72px;isolation:isolate}
+.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;z-index:-2;animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-2%,1.5%)}}
+.hero{overflow:hidden}
+.embers{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.embers i{position:absolute;bottom:-10px;width:4px;height:4px;background:var(--ember);box-shadow:0 0 8px var(--ember);animation:rise linear infinite;opacity:0}
+@keyframes rise{0%{transform:translateY(0);opacity:0}10%{opacity:.9}100%{transform:translate(var(--dx),-90vh);opacity:0}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse at 70% 30%,transparent 0,rgba(11,7,16,.35) 45%,rgba(11,7,16,.92) 100%),linear-gradient(to top,var(--night) 0,rgba(11,7,16,.55) 40%,rgba(11,7,16,.2) 100%)}
+.kicker{font-family:var(--pix);font-size:13px;color:var(--ember);letter-spacing:3px;text-transform:uppercase}
+.logo{font-family:var(--pix);font-weight:700;font-size:clamp(34px,10.5vw,132px);line-height:.9;color:var(--blood);letter-spacing:2px;margin:12px 0 18px;
+  text-shadow:0 0 30px rgba(216,35,58,.55),0 4px 0 #4a0710}
+.tag{font-family:var(--serif);font-size:clamp(20px,2.6vw,28px);max-width:640px;color:var(--bone)}
+.tag em{color:var(--blood2);font-style:italic}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--pix);font-size:15px;text-decoration:none;padding:15px 22px;border-radius:4px;cursor:pointer;border:0;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-blood{background:var(--blood);color:#fff;box-shadow:0 8px 30px -8px rgba(216,35,58,.8),0 0 0 1px #ff6b7c66 inset}
+.btn-blood:hover{background:var(--blood2)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--bone);box-shadow:0 0 0 1px rgba(255,255,255,.18) inset}
+.btn small{font-family:var(--sans);font-size:12px;opacity:.75}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.stats div{font-family:var(--pix);font-size:28px;color:var(--bone);line-height:1}
+.stats span{display:block;font-family:var(--sans);font-size:12px;color:var(--mist);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
+
+/* sections */
+section{padding:110px 0}
+.eyebrow{font-family:var(--pix);font-size:12px;color:var(--blood2);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+h2{font-family:var(--pix);font-size:clamp(28px,4vw,44px);line-height:1.1;font-weight:400;margin-bottom:18px}
+.lead{font-family:var(--serif);font-size:20px;color:var(--mist);max-width:680px}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+.intro p+p{margin-top:16px}
+.intro .story{font-family:var(--serif);font-size:19px;color:var(--mist)}
+.intro .story strong{color:var(--bone);font-weight:600}
+.framed{position:relative;border-radius:6px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 1px var(--line)}
+.framed::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 80px rgba(11,7,16,.7)}
+.sun{margin-top:26px;display:flex;gap:14px;align-items:flex-start;background:var(--night2);border:1px solid var(--line);border-left:3px solid var(--ember);padding:16px 18px;border-radius:4px;font-size:15px;color:var(--mist)}
+.sun b{color:var(--ember);font-family:var(--pix);font-weight:400;font-size:13px;display:block;margin-bottom:2px}
+
+/* features */
+.features{background:linear-gradient(var(--night),var(--night2) 30%,var(--night2) 70%,var(--night))}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.card{background:var(--night3);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:rgba(216,35,58,.45)}
+.card img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.card div{padding:20px 22px 24px}
+.card h3{font-family:var(--pix);font-weight:400;font-size:17px;margin-bottom:8px;color:var(--bone)}
+.card p{font-size:14.5px;color:var(--mist)}
+
+/* skills strip */
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px}
+.skills span{font-family:var(--pix);font-size:12px;padding:7px 11px;border-radius:3px;background:#2a1a10;color:var(--parch);border:1px solid #5a4126}
+.skills span.m{background:#2a0d14;color:#ff8e9b;border-color:#6b1a27}
+
+/* world */
+.regions{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(280px,340px);gap:18px;overflow-x:auto;padding:46px 16px 24px;margin-inline:-16px;scroll-snap-type:x mandatory;scrollbar-color:var(--blood) transparent}
+.region{scroll-snap-align:start;position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;background:var(--night3)}
+.region img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.region:hover img{transform:scale(1.05)}
+.region div{position:absolute;inset:auto 0 0 0;padding:60px 18px 18px;background:linear-gradient(transparent,rgba(11,7,16,.95))}
+.region h3{font-family:var(--pix);font-weight:400;font-size:17px}
+.region p{font-size:13.5px;color:var(--mist)}
+.region .lv{position:absolute;top:12px;left:12px;font-family:var(--pix);font-size:11px;background:rgba(11,7,16,.8);padding:4px 8px;border-radius:3px;color:var(--ember)}
+.more-regions{margin-top:14px;font-size:14px;color:var(--dim)}
+
+/* gallery */
+.gallery{columns:3 300px;column-gap:14px;margin-top:46px}
+.gallery button{display:block;width:100%;margin-bottom:14px;border:0;padding:0;background:none;cursor:zoom-in;border-radius:5px;overflow:hidden;break-inside:avoid;position:relative}
+.gallery button img{width:100%;transition:filter .2s}
+.gallery button:hover img{filter:brightness(1.12)}
+.gallery button span{position:absolute;left:10px;bottom:10px;font-family:var(--pix);font-size:11px;background:rgba(11,7,16,.82);padding:4px 8px;border-radius:3px;color:var(--bone);opacity:0;transition:opacity .2s}
+.gallery button:hover span,.gallery button:focus-visible span{opacity:1}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,3,7,.94);display:none;align-items:center;justify-content:center;padding:24px}
+.lb.on{display:flex}
+.lb img{max-height:86vh;border-radius:4px;box-shadow:0 0 0 1px var(--line)}
+.lb p{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-family:var(--pix);font-size:13px;color:var(--mist)}
+.lb .x,.lb .nav{position:absolute;background:rgba(255,255,255,.08);color:var(--bone);border:0;width:46px;height:46px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb .x{top:16px;right:16px}.lb .prev{left:16px;top:50%}.lb .next{right:16px;top:50%}
+
+/* swords */
+.swords{background:#120a0d;border-block:1px solid var(--line);padding:70px 0}
+.swords .row{display:grid;grid-template-columns:1fr 1.4fr;gap:44px;align-items:center}
+.swords img{image-rendering:pixelated;width:100%;border-radius:4px;background:#1a1012;border:1px solid var(--line)}
+.swords ul{list-style:none;margin-top:16px;display:grid;gap:6px;font-size:14.5px;color:var(--mist)}
+.swords li b{color:var(--parch);font-weight:600}
+
+/* trailer */
+.trailer video{width:100%;border-radius:6px;margin-top:40px;box-shadow:0 30px 90px -20px rgba(216,35,58,.35),0 0 0 1px var(--line);background:#000}
+
+/* download (parchment, like the in-game chatbox) */
+.dl{padding-bottom:130px}
+.parch{background:var(--parch);color:var(--ink);border-radius:4px;padding:44px clamp(22px,5vw,56px);box-shadow:0 0 0 3px #5a4126,0 0 0 6px #2a1d10,0 40px 90px -30px #000;
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.18),transparent 50%),radial-gradient(circle at 90% 90%,rgba(90,65,38,.25),transparent 60%)}
+.parch h2{color:#6b0a16}
+.parch .lead{color:#4b3a24}
+.dlgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;margin-top:30px}
+.parch h4{font-family:var(--pix);font-weight:400;font-size:14px;color:#6b0a16;margin:0 0 10px}
+.parch ol,.parch dl{font-size:15px}
+.parch ol{padding-left:20px;display:grid;gap:6px}
+.parch dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
+.parch dt{font-family:var(--pix);font-size:12px;padding-top:3px;white-space:nowrap}
+.parch .btn-blood{margin-top:24px;font-size:17px;padding:18px 26px}
+.meta{font-size:13px;color:#5d4a30;margin-top:10px}
+.note{margin-top:22px;font-size:13.5px;background:rgba(43,29,16,.08);border:1px dashed #8a7048;padding:12px 14px;border-radius:3px}
+
+/* donate signpost, in the style of the in-game wooden signs */
+.signpost{position:relative;display:flex;flex-direction:column;align-items:center;margin-top:70px}
+.plank{position:relative;z-index:1;display:block;font-family:var(--pix);text-decoration:none;color:#ffe9b8;text-shadow:0 2px 0 #3a210c;
+  background:repeating-linear-gradient(0deg,#8a5a2b 0 6px,#7c4f24 6px 12px);border:3px solid #4a2c12;border-radius:3px;
+  box-shadow:0 6px 0 #2c1a0a,0 14px 30px -10px #000;padding:16px 38px;transform-origin:50% -20px}
+.plank .nail{position:absolute;top:50%;left:10px;width:7px;height:7px;margin-top:-3px;background:#c9b38a;box-shadow:inset -2px -2px 0 #6b5a3a}
+.plank .nail.r{left:auto;right:10px}
+.p1{font-size:clamp(18px,3vw,26px);transform:rotate(-3deg);animation:sway 3.2s ease-in-out infinite;transition:background .2s}
+.p1:hover{background:repeating-linear-gradient(0deg,#a8202f 0 6px,#931a28 6px 12px);border-color:#4a0710;color:#fff;animation-play-state:paused}
+.p2{font-size:13px;margin-top:10px;padding:9px 26px;transform:rotate(2.5deg);color:#f0d9a8;transition:background .2s}
+.p2:hover{background:repeating-linear-gradient(0deg,#1f8a3a 0 6px,#1a7a33 6px 12px);border-color:#0d3d1a;color:#fff}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(1.5deg)}}
+.post{width:22px;height:90px;margin-top:-6px;background:repeating-linear-gradient(90deg,#6a4220 0 7px,#5a371a 7px 14px);border:3px solid #3a210c;border-bottom:0}
+.sign-sub{max-width:520px;text-align:center;font-family:var(--serif);font-size:17px;color:var(--mist);margin-top:18px}
+.igor{margin-top:14px;font-size:14px;background:var(--parch);color:var(--ink);padding:8px 14px;border-radius:3px;border:2px solid #5a4126}
+.igor b{color:#0a3aa8}
+@media (prefers-reduced-motion:reduce){.p1{animation:none}}
+footer{border-top:1px solid var(--line);padding:40px 0 50px;color:var(--dim);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 30px;align-items:center;justify-content:space-between}
+footer .z{font-family:var(--pix);color:var(--mist);text-decoration:none;letter-spacing:2px}
+footer .z span{color:var(--blood2)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+@media (max-width:900px){
+  nav ul{display:none}
+  .nav-cta{margin-left:auto}
+  .intro,.dlgrid,.swords .row{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  section{padding:80px 0}
+}
+@media (max-width:600px){
+  .fgrid{grid-template-columns:1fr}
+  .stats div{font-size:22px}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="">FANGSCAPE</a>
+    <ul>
+      <li><a href="#story">The Hunger</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#world">World</a></li>
+      <li><a href="#gallery">Screenshots</a></li>
+      <li><a href="#trailer">Trailer</a></li>
+    </ul>
+    <a class="nav-cta" href="#download">Play free</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="poster" src="img/hero.jpg" alt="">
+  <div class="embers" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="kicker">A ZotixSoft game &middot; Free for Windows</div>
+    <h1 class="logo">FANGSCAPE</h1>
+    <p class="tag">An old-school, tick-based RPG. Click to move, click to fight, grind your levels... <em>except you're the vampire.</em></p>
+    <div class="ctas">
+      <a class="btn btn-blood" href="download/Fangscape_Windows.zip" download>&#9660; Download free <small>Windows &middot; 18 MB</small></a>
+      <a class="btn btn-ghost" href="#trailer">&#9654; Watch the trailer</a>
+    </div>
+    <div class="stats">
+      <div>15<span>Skills</span></div>
+      <div>19<span>Quests</span></div>
+      <div>17<span>Regions</span></div>
+      <div>23<span>Blood spells</span></div>
+      <div>$0<span>Forever</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="story">
+  <div class="wrap intro">
+    <div class="rv">
+      <div class="eyebrow">The Hunger</div>
+      <h2>You wake in your coffin. The sun is setting. You're hungry.</h2>
+      <div class="story">
+        <p>Fangscape is a love letter to the click-to-move MMOs of the early 2000s: 0.6-second ticks, right-click menus, a chatbox full of level-ups, and a bank that's always too full. <strong>The twist is that you're the monster.</strong></p>
+        <p>Feed on villagers to heal. Fill vials with blood. Duck the vampire hunters who come looking when the village gets suspicious. Then go and take on goblins, swamp gators, a pharaoh, a fire titan and, eventually, an elder dragon.</p>
+      </div>
+      <div class="sun"><span>&#9728;</span><div><b>Mind the daylight</b>The sun won't burn you, but outdoors in daylight you hit 25% weaker and miss more. Hunt at night, or fight indoors.</div></div>
+    </div>
+    <div class="framed rv"><img src="img/portrait.jpg" alt="A pale vampire in a burning cape standing outside Castle Fangmoor at dusk" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">What's in the coffin</div>
+      <h2>Everything you loved about old-school RPGs, with fangs.</h2>
+      <p class="lead">Slow, satisfying progression on a big handmade map. No microtransactions, no account, no server. Just you and the grind.</p>
+    </div>
+    <div class="fgrid">
+      <article class="card rv"><img src="img/c_dragon.jpg" alt="Fighting the red dragon Scorchwing" loading="lazy"><div><h3>Tick-based combat</h3><p>Classic click-to-fight with combat styles, special attack bars and real gear progression through seven original metals up to Mythic Blood.</p></div></article>
+      <article class="card rv"><img src="img/c_bow.jpg" alt="Firing the Emerald jade bow special attack" loading="lazy"><div><h3>Melee, ranged &amp; magic</h3><p>Blades, mauls, whips and claws. Bows from Shortbow to the Emerald Jade Bow. Staves for blood magic. Switch whenever you like.</p></div></article>
+      <article class="card rv"><img src="img/c_ice.jpg" alt="Casting an ice spell from the Blood Demon Arts spellbook" loading="lazy"><div><h3>Blood Demon Arts</h3><p>A 23-spell book of blood bolts, curses and fire, ice, earth, storm and void incantations, each with its own look. Autocast and go.</p></div></article>
+      <article class="card rv"><img src="img/c_tide.jpg" alt="The Mythic Tide special attack" loading="lazy"><div><h3>Juicy special attacks</h3><p>Shadow clones, bat swarms, chain lightning, frost shatter, blood tides. Almost 30 spec weapons, and every one of them hits like a truck.</p></div></article>
+      <article class="card rv"><img src="img/c_smith.jpg" alt="The smithing window" loading="lazy"><div><h3>Skill it up</h3><p>Mine, smelt and smith your own gear. Chop, fish, cook, light fires, bury bones for Incantations and harvest blood. Fifteen skills to max.</p></div></article>
+      <article class="card rv"><img src="img/glade.jpg" alt="A vampire in a flaming cape in the glowing Wispwood Glade" loading="lazy"><div><h3>Capes that slap</h3><p>Legendary capes that burn, drip lava, ripple like water, crackle with frost or glitter with stars. Plus god shields, robes and coloured boots.</p></div></article>
+    </div>
+    <div class="skills rv" aria-label="Skills">
+      <span>Attack</span><span>Strength</span><span>Defence</span><span>Hitpoints</span><span>Ranged</span><span class="m">Bloodlust</span><span class="m">Bloodbending</span><span class="m">Bloodharvest</span><span class="m">Incantations</span><span>Mining</span><span>Smithing</span><span>Lumberjacking</span><span>Firemaking</span><span>Fishing</span><span>Cooking</span>
+    </div>
+  </div>
+</section>
+
+<section id="world">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">The world</div>
+      <h2>Seventeen regions, all made by hand.</h2>
+      <p class="lead">From the misty halls of Castle Fangmoor to a desert kingdom, a frozen fjord and a lawless blood-soaked wilderness where you only keep three items if you die.</p>
+    </div>
+    <div class="regions">
+      <div class="region"><img src="img/dragonwide.jpg" alt="" loading="lazy"><span class="lv">Boss</span><div><h3>Dragon's Roost</h3><p>Lair of Scorchwing, the fire-breathing elder dragon.</p></div></div>
+      <div class="region"><img src="img/pyrrhax.jpg" alt="" loading="lazy"><span class="lv">Boss</span><div><h3>Mount Cinder</h3><p>A sealed volcano and Pyrrhax, the fire titan inside.</p></div></div>
+      <div class="region"><img src="img/bazaar.jpg" alt="" loading="lazy"><span class="lv">Desert</span><div><h3>Khabeebia</h3><p>A bazaar, an oasis, mummies and the Sun Pyramid.</p></div></div>
+      <div class="region"><img src="img/g_wilds.jpg" alt="" loading="lazy"><span class="lv">Wild 1-30+</span><div><h3>The Bloodwastes</h3><p>No teleports past level 20. Mythic Blood ore waits at the bottom.</p></div></div>
+      <div class="region"><img src="img/g_batbridge.jpg" alt="" loading="lazy"><span class="lv">Hub</span><div><h3>Batbridge</h3><p>The crossroads town on the edge of the wastes.</p></div></div>
+      <div class="region"><img src="img/g_rimeveil.jpg" alt="" loading="lazy"><span class="lv">Snow</span><div><h3>Rimeveil &amp; Hollowfrost</h3><p>Frozen huts, ice lakes and wraiths.</p></div></div>
+      <div class="region"><img src="img/g_tamaru.jpg" alt="" loading="lazy"><span class="lv">Jungle</span><div><h3>Verdance Coast</h3><p>Port Tamaru, jaguars and the Broodmother.</p></div></div>
+      <div class="region"><img src="img/g_whip.jpg" alt="" loading="lazy"><span class="lv">Night</span><div><h3>Wispwood Glade</h3><p>Glowing mushrooms and wisps in four colours.</p></div></div>
+      <div class="region"><img src="img/g_swamp.jpg" alt="" loading="lazy"><span class="lv">Swamp</span><div><h3>Mirewood Swamp</h3><p>Gators. And their mother.</p></div></div>
+    </div>
+    <p class="more-regions">Also: Castle Fangmoor, Garlicford, the city of Grimrock, the Wizard's Tower, Frostfang Hollow, Ashfall Isle, Fangmoor Quarry and Noxhaven.</p>
+  </div>
+</section>
+
+<section id="gallery" style="padding-top:40px">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Screenshots</div>
+      <h2>Straight from the game.</h2>
+      <p class="lead">Every shot is real in-game footage, HUD and all. Click one to look closer.</p>
+    </div>
+    <div class="gallery" id="gal">
+      <button data-cap="Scorchwing, the elder dragon"><img src="img/hero.jpg" alt="Fighting Scorchwing" loading="lazy"><span>Scorchwing</span></button>
+      <button data-cap="Mythic Tide special attack"><img src="img/g_tide.jpg" alt="" loading="lazy"><span>Mythic Tide</span></button>
+      <button data-cap="Pharaoh Ankh-Ra, Khabeebia"><img src="img/pharaoh.jpg" alt="" loading="lazy"><span>Pharaoh Ankh-Ra</span></button>
+      <button data-cap="Chain Lightning special"><img src="img/g_chain.jpg" alt="" loading="lazy"><span>Chain Lightning</span></button>
+      <button data-cap="Blood Demon Arts spellbook"><img src="img/g_spellbook.jpg" alt="" loading="lazy"><span>Spellbook</span></button>
+      <button data-cap="Void magic in Fangmoor Woods"><img src="img/g_void.jpg" alt="" loading="lazy"><span>Void magic</span></button>
+      <button data-cap="Fire, frost and void imps"><img src="img/g_imps.jpg" alt="" loading="lazy"><span>Imps</span></button>
+      <button data-cap="Frost Shatter special"><img src="img/g_frost.jpg" alt="" loading="lazy"><span>Frost Shatter</span></button>
+      <button data-cap="Mining in Fangmoor Quarry"><img src="img/g_quarry.jpg" alt="" loading="lazy"><span>Mining</span></button>
+      <button data-cap="Marlo's shop in Grimrock"><img src="img/g_shop.jpg" alt="" loading="lazy"><span>Shopping</span></button>
+      <button data-cap="Port Tamaru, Verdance Coast"><img src="img/g_tamaru.jpg" alt="" loading="lazy"><span>Port Tamaru</span></button>
+      <button data-cap="The Broodmother"><img src="img/g_brood.jpg" alt="" loading="lazy"><span>Broodmother</span></button>
+      <button data-cap="Main menu"><img src="img/menu.jpg" alt="" loading="lazy"><span>Main menu</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="swords">
+  <div class="wrap row">
+    <div class="rv">
+      <div class="eyebrow">Legendary steel</div>
+      <h2>Swords with a story.</h2>
+      <ul>
+        <li><b>Sunfang</b> calls down a solar flare.</li>
+        <li><b>Eclipse Edge</b> is the prize for Khabub's quest. You'll know.</li>
+        <li><b>Khopesh of Anubis</b>, looted from the Sun Pyramid.</li>
+        <li><b>Dragonbone Greatsword</b>, carved from what's left of a dragon.</li>
+        <li><b>Duskreaver</b>, forged by Grevane if you bring the right bars.</li>
+      </ul>
+    </div>
+    <img class="rv" src="img/swords.png" alt="A row of legendary pixel-art swords" loading="lazy">
+  </div>
+</div>
+
+<section class="trailer" id="trailer">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Trailer</div>
+      <h2>Hunt by night. Slay legends.</h2>
+    </div>
+    <video class="rv" controls preload="none" poster="img/trailer_poster.jpg">
+      <source src="video/trailer.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<section class="dl" id="download">
+  <div class="wrap">
+    <div class="parch rv">
+      <h2>Rise from your coffin.</h2>
+      <p class="lead">Fangscape is free. No account, no ads, no store. Unzip and play.</p>
+      <div class="dlgrid">
+        <div>
+          <h4>Install</h4>
+          <ol>
+            <li>Download the zip and unzip the whole folder.</li>
+            <li>Double-click <b>Fangscape.exe</b>.</li>
+            <li>If Windows says "protected your PC", click <b>More info</b> &rarr; <b>Run anyway</b>. The game isn't code-signed, like most small indie games.</li>
+          </ol>
+          <a class="btn btn-blood" href="download/Fangscape_Windows.zip" download>&#9660; Download Fangscape</a>
+          <div class="meta">Windows 10 / 11 &middot; 18 MB &middot; Autosaves next to the exe</div>
+          <div class="note"><b>Just want to mess around?</b> Switch on <b>Admin Panel</b> in the main menu, then press F1 in game to spawn items, max your stats, go god mode and teleport anywhere.</div>
+        </div>
+        <div>
+          <h4>Controls</h4>
+          <dl>
+            <dt>Left click</dt><dd>Walk, attack, talk, use</dd>
+            <dt>Right click</dt><dd>Options menu: Feed-on, Examine...</dd>
+            <dt>Arrows / MMB</dt><dd>Rotate the camera</dd>
+            <dt>Wheel</dt><dd>Zoom</dd>
+            <dt>R</dt><dd>Toggle run</dd>
+          </dl>
+          <h4 style="margin-top:26px">Tips</h4>
+          <ol>
+            <li>Igor, in the castle, has a short tutorial and your first quest.</li>
+            <li>Blood heals you fast. The hunters will notice.</li>
+            <li>The Quick Setup tab hands you a Warrior, Ranger, Mage or Hybrid kit for your levels.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- donate signpost: set DONATE_URL in the script at the bottom -->
+    <div class="signpost rv">
+      <a class="plank p1" id="donate" href="#" target="_blank" rel="noopener">
+        <span class="nail"></span><span class="nail r"></span>
+        Donate blood &rarr;
+        <small style="display:block;font-size:11px;opacity:.7;margin-top:2px;text-align:center">via PayPal</small>
+      </a>
+      <a class="plank p2" href="https://cash.app/$RetroXGames" target="_blank" rel="noopener"><span class="nail"></span><span class="nail r"></span>or Cash App $RetroXGames &rarr;</a>
+      <div class="post"></div>
+      <p class="sign-sub">Fangscape is free forever. If it ate a weekend of yours, toss a coin in Igor's jar. It keeps the coffin warm and the updates coming.</p>
+      <p class="igor" id="igor" hidden><b>Igor:</b> Master hasn't hung the tip jar up yet. Check back soon!</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="z" href="https://zotixsoft.com/"><span>ZOTIX</span>SOFT</a>
+    <span>Fangscape &copy; 2026 ZotixSoft. Game and music by ZotixSoft. Made with raylib.</span>
+    <a href="https://zotixsoft.com/library/" style="color:var(--mist)">More games &rarr;</a>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="x" aria-label="Close">&times;</button>
+  <button class="nav prev" aria-label="Previous">&lsaquo;</button>
+  <img alt="">
+  <button class="nav next" aria-label="Next">&rsaquo;</button>
+  <p></p>
+</div>
+
+<script>
+// paste the Ko-fi / PayPal / Buy Me a Coffee link here; until then the sign shows Igor's note
+const DONATE_URL='https://www.paypal.com/donate/?business=arvinsetareh%40yahoo.com&item_name=Fangscape&currency_code=USD';
+const don=document.getElementById('donate');
+if(DONATE_URL)don.href=DONATE_URL;
+else{don.removeAttribute('target');don.addEventListener('click',e=>{e.preventDefault();document.getElementById('igor').hidden=false})}
+
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('solid',scrollY>40);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+const items=[...document.querySelectorAll('#gal button')];
+const lb=document.getElementById('lb'),lbImg=lb.querySelector('img'),lbCap=lb.querySelector('p');
+let cur=0;
+const show=i=>{cur=(i+items.length)%items.length;const b=items[cur];lbImg.src=b.querySelector('img').src;lbCap.textContent=b.dataset.cap;lb.classList.add('on')};
+items.forEach((b,i)=>b.addEventListener('click',()=>show(i)));
+lb.querySelector('.x').onclick=()=>lb.classList.remove('on');
+lb.querySelector('.prev').onclick=e=>{e.stopPropagation();show(cur-1)};
+lb.querySelector('.next').onclick=e=>{e.stopPropagation();show(cur+1)};
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('on')});
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+
+// square pixel embers drifting up from the dragon fire (skipped for reduced-motion users)
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  const box=document.querySelector('.embers');
+  for(let i=0;i<28;i++){const e=document.createElement('i');const s=2+Math.random()*4;
+    e.style.cssText=`left:${30+Math.random()*65}%;width:${s}px;height:${s}px;--dx:${(Math.random()-.5)*160}px;animation-duration:${6+Math.random()*8}s;animation-delay:${-Math.random()*14}s;${Math.random()<.3?'background:#ff4458;box-shadow:0 0 8px #ff4458;':''}`;
+    box.appendChild(e)}
+} else document.querySelector('.hero .poster').style.animation='none';
+</script>
+</body>
+</html>
