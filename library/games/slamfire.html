@@ -6,13 +6,21 @@
 <title>SLAMFIRE · ZOTIXSOFT Library</title>
 <meta name="description" content="Rust + wgpu horde shooter. A ZotixSoft game by Arvin Setareh.">
 <link rel="canonical" href="https://zotixsoft.com/library/games/slamfire.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZOTIXSOFT">
+<meta property="og:url" content="https://zotixsoft.com/library/games/slamfire.html">
 <meta property="og:title" content="SLAMFIRE · ZOTIXSOFT">
-<meta property="og:description" content="Rust + wgpu horde shooter.">
+<meta property="og:description" content="Rust + wgpu horde shooter. A ZotixSoft game by Arvin Setareh.">
 <meta property="og:image" content="https://zotixsoft.com/library/art/slamfire.jpg">
+<meta property="og:image:alt" content="SLAMFIRE key art">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SLAMFIRE · ZOTIXSOFT">
+<meta name="twitter:description" content="Rust + wgpu horde shooter. A ZotixSoft game by Arvin Setareh.">
+<meta name="twitter:image" content="https://zotixsoft.com/library/art/slamfire.jpg">
 <link rel="icon" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"SLAMFIRE","description":"Rust + wgpu horde shooter.","genre":"Horde FPS","author":{"@type":"Person","name":"Arvin Setareh","url":"https://zotixsoft.com/arvin-setareh"},"publisher":{"@type":"Organization","name":"ZotixSoft","url":"https://zotixsoft.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "SLAMFIRE", "url": "https://zotixsoft.com/library/games/slamfire.html", "description": "Rust + wgpu horde shooter.", "genre": "Horde FPS", "image": "https://zotixsoft.com/library/art/slamfire.jpg", "author": {"@type": "Person", "name": "Arvin Setareh", "url": "https://zotixsoft.com/arvin-setareh"}, "publisher": {"@type": "Organization", "name": "ZotixSoft", "url": "https://zotixsoft.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ZOTIXSOFT", "item": "https://zotixsoft.com/"}, {"@type": "ListItem", "position": 2, "name": "Library", "item": "https://zotixsoft.com/library/"}, {"@type": "ListItem", "position": 3, "name": "SLAMFIRE", "item": "https://zotixsoft.com/library/games/slamfire.html"}]}</script>
 <style>
 :root{--teal:#2ee6d0;--gold:#e9cf94;--bg:#031414;--ink:#e8fffb;--dim:#7fb8b1;--acc:var(--teal)}
 .gold{--acc:var(--gold)}
@@ -46,7 +54,20 @@ h2{font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
 .tile::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,#0009)}
 .tile span{position:relative}
 .tile:hover,.tile:focus{transform:scale(1.06);box-shadow:0 0 0 3px var(--acc)}
+.feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.feat{padding:16px 18px;border-radius:10px;border:1px solid #ffffff14;background:#ffffff08}
+.feat h3{margin:0 0 6px;font-size:16px;color:var(--acc)}
+.feat p{margin:0;font-size:14px;line-height:1.5;color:#cfeeea}
+.about{max-width:860px}
+.about h3{margin:18px 0 6px;font-size:18px;color:var(--ink)}
+.about p{margin:0 0 8px;font-size:16px;line-height:1.6;color:#cfeeea}
+.faq{max-width:860px}
+.faq details{border-bottom:1px solid #ffffff14;padding:12px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:16px}
+.faq p{margin:8px 0 0;font-size:15px;line-height:1.6;color:#cfeeea}
 footer{padding:40px 48px;color:var(--dim);font-size:13px}
+.yt{position:relative;aspect-ratio:16/9;max-width:1100px;border-radius:12px;overflow:hidden;border:1px solid #ffffff1a;background:#000}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 #lb{position:fixed;inset:0;background:#000e;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
 #lb img{max-width:94vw;max-height:90vh;border-radius:8px}
 @media (max-width:640px){header,section,footer{padding-left:16px;padding-right:16px}.info{left:16px;right:16px;bottom:32px}.desc{font-size:16px}}
@@ -59,11 +80,15 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
   <div class="meta">Horde FPS · In development</div>
   <h1>SLAMFIRE</h1>
   <p class="desc">Rust + wgpu horde shooter.</p>
-  <div class="plaque">Gallery No. 023 · Shooters · Arvin Zotix</div>
+  <div class="plaque">Gallery No. 025 · Shooters · Arvin Zotix</div>
   <div class="btns"><a class="btn ghost" href="../">Back to Library</a></div>
  </div>
 </div>
-<section><h2>Gallery</h2><div class="shots"><img src="../art/slamfire.jpg" alt="SLAMFIRE screenshot" loading="lazy"><img src="../art/shots/slamfire-0.jpg" alt="SLAMFIRE screenshot" loading="lazy"><img src="../art/shots/slamfire-1.jpg" alt="SLAMFIRE screenshot" loading="lazy"><img src="../art/shots/slamfire-2.jpg" alt="SLAMFIRE screenshot" loading="lazy"><img src="../art/shots/slamfire-3.jpg" alt="SLAMFIRE screenshot" loading="lazy"></div></section>
+
+
+
+<section><h2>Gallery</h2><div class="shots"><img src="../art/slamfire.jpg" alt="SLAMFIRE screenshot 1" loading="lazy"><img src="../art/shots/slamfire-0.jpg" alt="SLAMFIRE screenshot 2" loading="lazy"><img src="../art/shots/slamfire-1.jpg" alt="SLAMFIRE screenshot 3" loading="lazy"><img src="../art/shots/slamfire-2.jpg" alt="SLAMFIRE screenshot 4" loading="lazy"><img src="../art/shots/slamfire-3.jpg" alt="SLAMFIRE screenshot 5" loading="lazy"></div></section>
+
 <section><h2>More from Shooters</h2><div class="peers"><a class="tile" href="dirk-kaboom.html" style="background:url(../art/dirk.jpg) center/cover,linear-gradient(135deg,#ffd23a,#301800)"><span>Dirk Kaboom</span></a><a class="tile" href="xenith-overload.html" style="background:linear-gradient(135deg,#a04aff,#10042a)"><span>Xenith: OverLoad</span></a><a class="tile" href="gloam.html" style="background:linear-gradient(135deg,#ffaa40,#05050f)"><span>Gloam</span></a></div></section>
 <footer>© 2026 ZotixSoft LLC · Made by <a href="/arvin-setareh">Arvin Setareh</a></footer>
 <div id="lb" onclick="this.style.display='none'"><img alt=""></div>
