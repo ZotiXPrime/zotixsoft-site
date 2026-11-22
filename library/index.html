@@ -69,26 +69,27 @@ kbd{border:1px solid var(--dim);border-radius:4px;padding:0 6px;margin-right:4px
 <body>
 <div id="boot"><div class="bwrap"><img class="emb" src="art/zotixsoft_emblem.png" alt=""><div class="wm"><img src="art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT"></div><div class="tag">THE LIBRARY</div></div><div class="skip">PRESS ANY BUTTON TO SKIP</div></div>
 <div id="bg"></div><video id="heroVid" muted loop playsinline></video>
-<header><a class="logo" href="/"><img src="art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT" style="height:30px;display:block"></a><div class="status"><span class="friends"><span class="dot"></span>3 friends online</span><span id="ach">🏆 0</span><span id="clock"></span></div></header>
+<header><a class="logo" href="/"><img src="art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT" style="height:30px;display:block"></a><div class="status"><a href="/watch.html" style="color:var(--teal);text-decoration:none;font-weight:600;letter-spacing:.1em">▶ THEATER</a><span class="friends"><span class="dot"></span>3 friends online</span><span id="ach">🏆 0</span><span id="clock"></span></div></header>
 <section id="hero"><div class="meta" id="hMeta"></div><h1 id="hTitle"></h1><p id="hDesc"></p><div class="plaque" id="hPlaque"></div></section>
 <div id="rows"><div id="rowsInner"></div></div>
 <footer><span><kbd>←↑→↓</kbd>Browse</span><span><kbd>Enter</kbd>Open</span><span><kbd>Esc</kbd>Back</span><span>🎮 Gamepad supported</span></footer>
-<div id="detail"><div class="card"><div class="art" id="dArt"></div><div class="body"><div class="meta" id="dMeta" style="color:var(--teal);letter-spacing:.12em;font-size:13px;text-transform:uppercase"></div><p id="dDesc" style="line-height:1.5"></p><div class="btns"><button class="btn" id="dPlay"></button><a class="btn ghost" id="dPage" style="text-decoration:none">Full page →</a><button class="btn ghost" onclick="closeDetail()">Back</button></div></div></div></div>
+<div id="detail"><div class="card"><div class="art" id="dArt"></div><div class="body"><div class="meta" id="dMeta" style="color:var(--teal);letter-spacing:.12em;font-size:13px;text-transform:uppercase"></div><p id="dDesc" style="line-height:1.5"></p><div class="btns"><button class="btn" id="dPlay"></button><button class="btn ghost" id="dWatch">▶ Watch trailer</button><a class="btn ghost" id="dPage" style="text-decoration:none">Full page →</a><button class="btn ghost" onclick="closeDetail()">Back</button></div></div></div></div>
 <div id="toast"></div>
+<script src="theater.js"></script>
 <script>
 const LIB=[
  {row:"Featured",games:[
-  {t:"Emerald Burst",v:"emerald-burst-clip",c:["#0f9b4a","#04331a"],s:"live",g:"Action · PC",d:"Kyro's green transformation brawler. Out now on the Epic Games Store.",cta:"View on Epic",url:"https://store.epicgames.com/p/emerald-burst-c1a6cc"},
-  {t:"Fangscape",v:"fangscape-clip",c:["#d8233a","#1a0408"],s:"live",g:"Old-school RPG · PC",d:"An old-school, tick-based RPG where you play the vampire. 15 skills, 19 quests, blood magic and an elder dragon. Free for Windows.",cta:"Play free",url:"https://zotixsoft.com/fangscape/"},
-  {t:"Silver Sol",c:["#a9b8d6","#2b3550"],s:"dev",g:"RPG · UE5",d:"Elemental adventure. Sealed Temple dungeon and village, playable in Unreal."},
-  {t:"Hakuya: Squad",v:"hakuya-clip",c:["#e8e8f0","#3a1240"],s:"dev",g:"Action · Tag team",d:"A cocky flash-step squad you swap between mid-combo."},
+  {t:"Emerald Burst",f:"emerald-burst",v:"emerald-burst-clip",c:["#0f9b4a","#04331a"],s:"live",g:"Action · PC",d:"Kyro's green transformation brawler. Out now on the Epic Games Store.",cta:"View on Epic",url:"https://store.epicgames.com/p/emerald-burst-c1a6cc"},
+  {t:"Fangscape",f:"fangscape",v:"fangscape-clip",c:["#d8233a","#1a0408"],s:"live",g:"Old-school RPG · PC",d:"An old-school, tick-based RPG where you play the vampire. 15 skills, 19 quests, blood magic and an elder dragon. Free for Windows.",cta:"Play free",url:"https://zotixsoft.com/fangscape/"},
+  {t:"Silver Sol",f:"silver-sol",c:["#a9b8d6","#2b3550"],s:"dev",g:"RPG · UE5",d:"Elemental adventure. Sealed Temple dungeon and village, playable in Unreal."},
+  {t:"Hakuya: Squad",f:"hakuya-squad",v:"hakuya-clip",c:["#e8e8f0","#3a1240"],s:"dev",g:"Action · Tag team",d:"A cocky flash-step squad you swap between mid-combo."},
   {t:"Maskbound",c:["#d48a2a","#3b1a08"],s:"soon",g:"Adventure",d:"Swap masks to repaint the world. N64 soul, modern speed."},
-  {t:"God of Pork",v:"god-of-pork-clip",c:["#e06a8a","#3a0a14"],s:"soon",g:"Action parody",d:"An angry pig with chain blades against the whole pantheon."},
-  {t:"Burst League",c:["#30a0ff","#071a3a"],s:"soon",g:"Hero sports · Arena soccer",d:"Arena soccer played by anime heroes instead of cars. Fly, boost-run and blast the ball with ki beams, signature skills and power-ups as Kyro and the Emerald Burst cast. Coming soon to PC."}]},
+  {t:"God of Pork",f:"god-of-pork",v:"god-of-pork-clip",c:["#e06a8a","#3a0a14"],s:"soon",g:"Action parody",d:"An angry pig with chain blades against the whole pantheon."},
+  {t:"Burst League",f:"burst-league",c:["#30a0ff","#071a3a"],s:"soon",g:"Hero sports · Arena soccer",d:"Arena soccer played by anime heroes instead of cars. Fly, boost-run and blast the ball with ki beams, signature skills and power-ups as Kyro and the Emerald Burst cast. Coming soon to PC."}]},
  {row:"The Hakuya Wing",gallery:1,games:[
-  {t:"Hakuya OP",v:"hakuya-op",a:"hakuya-op",c:["#e8e8f0","#3a1240"],s:"film",g:"Anime opening · 0:47",d:"The cel-shaded opening that started it all."},
+  {t:"Hakuya OP",f:"hakuya-op",v:"hakuya-op",a:"hakuya-op",c:["#e8e8f0","#3a1240"],s:"film",g:"Anime opening · 0:47",d:"The cel-shaded opening that started it all."},
   {t:"Sign",v:"hakuya-sign",a:"hakuya-sign",c:["#ccd","#203"],s:"film",g:"Squad opening · 1:52",d:"The full widescreen squad opening."},
-  {t:"Breath of the Titan",v:"hakuya-titan",a:"hakuya-titan",c:["#cba","#210"],s:"film",g:"Short film · 2:52",d:"The squad against a mountain titan, cut to an original song."},
+  {t:"Breath of the Titan",f:"hakuya-titan",v:"hakuya-titan",a:"hakuya-titan",c:["#cba","#210"],s:"film",g:"Short film · 2:52",d:"The squad against a mountain titan, cut to an original song."},
   {t:"Howl",v:"hakuya-howl",a:"hakuya-howl",c:["#99a","#112"],s:"film",g:"Music video",d:"Hakuya under the moon."},
   {t:"Family",v:"hakuya-family",a:"hakuya-family",c:["#dcb","#311"],s:"film",g:"Two-song film",d:"The family film."},
   {t:"Ending",v:"hakuya-ed",a:"hakuya-ed",c:["#bcd","#123"],s:"film",g:"Anime ending · 1:03",d:"The closing credits roll."}]},
@@ -98,7 +99,7 @@ const LIB=[
   {t:"Ember Pillar 2",c:["#ffb020","#401800"],s:"dev",g:"Waves",d:"A flame swordsman with a golden DESTINY awakening."},
   {t:"SPLURT!",c:["#7be04a","#123008"],s:"dev",g:"Slime brawler",d:"Five levels of slime-on-slime violence."},
   {t:"Crowsworn",c:["#556","#111"],s:"dev",g:"Puzzle action",d:"A samurai and his spirit crow."},
-  {t:"FLEECED!",v:"fleeced-clip",c:["#f5e6c8","#5a3a1a"],s:"soon",g:"Stealth platformer · Comedy · SDL3",yt:"BBEPznCH1vk",d:"A cartoon sheep-stealing stealth game. Slick the fox sneaks sheep out from under the beaks of goose guards across seven timed heist levels, with a sheep vacuum, rewinders, wool bombs, goose disguises and a jetpack. Coming soon to PC."},
+  {t:"FLEECED!",f:"fleeced",v:"fleeced-clip",c:["#f5e6c8","#5a3a1a"],s:"soon",g:"Stealth platformer · Comedy · SDL3",yt:"BBEPznCH1vk",d:"A cartoon sheep-stealing stealth game. Slick the fox sneaks sheep out from under the beaks of goose guards across seven timed heist levels, with a sheep vacuum, rewinders, wool bombs, goose disguises and a jetpack. Coming soon to PC."},
   {t:"The Bender",c:["#4ad0ff","#2a0a00"],s:"dev",g:"Puzzle",d:"Real-time fire, ice and earth bending puzzles."}]},
  {row:"Platformers",games:[
   {t:"HEAD CASE",c:["#ff7a2a","#2a0a20"],s:"dev",g:"Platformer",d:"Fire your own head. Three stages, one boss."},
@@ -109,11 +110,27 @@ const LIB=[
   {t:"SLAMFIRE",c:["#ff5a1a","#200800"],s:"dev",g:"Horde FPS",d:"Rust + wgpu horde shooter."},
   {t:"Dirk Kaboom",c:["#ffd23a","#301800"],s:"dev",g:"Retro FPS",d:"An ice bow, rainbow guns and one-liners."},
   {t:"Xenith: OverLoad",c:["#a04aff","#10042a"],s:"dev",g:"Plasma FPS",d:"Ringworld plasma combat."},
-  {t:"Gloam",c:["#ffaa40","#05050f"],s:"dev",g:"Cave action",d:"Radiance-cascade lighting in a cave you can carve."}]},
+  {t:"Gloam",f:"gloam",c:["#ffaa40","#05050f"],s:"dev",g:"Cave action",d:"Radiance-cascade lighting in a cave you can carve."}]},
  {row:"Racers",games:[
   {t:"Midnight Takedown",c:["#ff3a8a","#0a0420"],s:"dev",g:"Arcade racer",d:"Night-time takedown racing."},
   {t:"Ball Blitz",c:["#2ee6d0","#04201e"],s:"live",g:"Car soccer · Browser",d:"Rocket-powered car soccer. Boost, flip, and score against bots. Free to play right in your browser.",cta:"Play in browser",url:"https://zotixsoft.com/ballblitz/"},
   {t:"Mach Line",c:["#ddd","#223"],s:"dev",g:"Racer",d:"Speed and nothing else."}]},
+ {row:"From the Vault",games:[
+  {t:"Golden Warrior",f:"golden-warrior",c:["#f2c14e","#2a1400"],s:"dev",g:"First-person action · UE5",d:"A first-person katana game in Unreal Engine 5 where the blade really slices what it hits."},
+  {t:"Hakuya",f:"hakuya",c:["#e8e8f0","#3a1240"],s:"dev",g:"Action",d:"The original flash-step action game. Lock on, dodge through attacks and fight with one hand in your pocket."},
+  {t:"Ember Pillar",f:"ember-pillar",c:["#ff7a1a","#2a0800"],s:"dev",g:"Action",d:"A flame swordsman holds the line against demon waves and three Wardens."},
+  {t:"SIGILFALL",f:"sigilfall",c:["#7a5cff","#0c0824"],s:"dev",g:"Card duels · SDL3",d:"A card duel game with a deck editor and voiced rivals, built on an in-house C++ and SDL3 engine."},
+  {t:"Zabby's Zabbatorium",f:"zabby",c:["#4ab0ff","#ff9ad0"],s:"dev",g:"3D action",d:"A blue rabbit in power armour with a cupcake cannon and a sunny toy-box world."},
+  {t:"Utsuro",f:"utsuro",c:["#c9c2b0","#14121a"],s:"dev",g:"Story adventure",d:"A masked wanderer who can turn hollow and let spears and walls pass straight through."},
+  {t:"Twilight Chronicles",f:"twilight-chronicles",c:["#8a6cff","#0a0a2a"],s:"dev",g:"Action RPG",d:"A worlds-beyond action RPG with a PS2-era look."},
+  {t:"Sugar Sands",f:"sugar-sands",c:["#ffb6d9","#c98a3a"],s:"dev",g:"Tower defense",d:"Tower defense in a desert made of dessert."},
+  {t:"Crimson Alert",f:"crimson-alert",c:["#e23838","#101a3a"],s:"dev",g:"RTS",d:"An isometric real-time strategy game: the Coalition against the Iron Pact."},
+  {t:"Pink Ocarina",f:"pink-ocarina",c:["#ff8ad0","#0f3a1a"],s:"dev",g:"Adventure",d:"A tiny forest adventure starring a hero in a pink tunic."},
+  {t:"Empress of the Forest",f:"empress",c:["#3ec46d","#0a1a2a"],s:"live",g:"Action platformer",d:"A fast 2D action platformer. Out now on itch.io.",cta:"Find on itch.io",url:"https://gamespheredev.itch.io/"},
+  {t:"Beast Gambit",f:"beast-gambit",c:["#ffa94a","#1a1a2a"],s:"dev",g:"Chess · Browser",d:"Pixel chess against the city animals, with a capture animation for every piece."},
+  {t:"Potion Peddler",f:"potion-peddler",c:["#b06aff","#2a1a0a"],s:"dev",g:"Deckbuilder",d:"A cozy potion-selling deckbuilder with nosy neighbours and a dragon landlord."},
+  {t:"Paper Skies",f:"paper-skies",c:["#f4f0e0","#3a6aa0"],s:"dev",g:"Shoot-em-up",d:"An origami shoot-em-up over a paper world."},
+  {t:"Ascension",f:"ascension",c:["#ffe07a","#201000"],s:"film",g:"Cinematic · 0:33 · UE5",d:"A power-up in the tournament ring, rendered in Unreal Engine 5."}]},
  {row:"Fortnite Islands",games:[
   {t:"Target Practice Island",c:["#ff4a4a","#1a0a3a"],s:"live",g:"UEFN · 1883-3342-0888",d:"The top earner. Go hit some targets.",cta:"Copy island code",code:"1883-3342-0888"},
   {t:"Shadow Realm",c:["#6a2aff","#05001a"],s:"soon",g:"UEFN party",d:"Playtested and loved."},
@@ -126,7 +143,7 @@ const LIB=[
   {t:"Egg Overload!!",c:["#ffe02a","#ff2a8a"],s:"dev",g:"Roblox",d:"An overly colourful egg-grab splat-fest."}]},
 ];
 const ART={"Emerald Burst":"emerald-burst","Fangscape":"fangscape","Hakuya: Squad":"hakuya","Maskbound":"maskbound","God of Pork":"god-of-pork","Burst League":"burst-league","Bruise":"bruise","SPLURT!":"splurt","Crowsworn":"crowsworn","The Bender":"bender","Gloopi 64":"gloopi","Moonwing":"moonwing","SLAMFIRE":"slamfire","Dirk Kaboom":"dirk","Midnight Takedown":"midnight","FLEECED!":"fleeced","Mach Line":"mach-line"};
-const art=g=>g.a||ART[g.t];const bgOf=g=>(art(g)?`url(art/${art(g)}.jpg) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
+const art=g=>g.a||ART[g.t];const pic=g=>art(g)?`art/${art(g)}.jpg`:g.f?`films/posters/${g.f}.jpg`:'';const bgOf=g=>(pic(g)?`url(${pic(g)}) center/cover,`:'')+`linear-gradient(135deg,${g.c[0]},${g.c[1]})`;
 const MAIN=["Emerald Burst","Silver Sol","Hakuya: Squad","Maskbound","God of Pork","Burst League","Bruise","Ember Pillar 2","SPLURT!","The Bender","Gloam","SLAMFIRE","Dirk Kaboom","Xenith: OverLoad","Midnight Takedown","Ball Blitz","Target Practice Island","Kage Rising","Fire Ice Ball","FLEECED!"];
 const rowsEl=document.getElementById('rowsInner');let R=0,C=[];const total=LIB.reduce((a,r)=>a+r.games.length,0);
 const badge={live:'<span class="badge live">LIVE</span>',soon:'<span class="badge">COMING SOON</span>',dev:'<span class="badge">IN DEV</span>',film:'<span class="badge" style="color:#e9cf94">▶ FILM</span>'};
@@ -139,26 +156,26 @@ function render(noScroll){document.querySelectorAll('.row').forEach((r,ri)=>{r.c
   const w=innerWidth<640?166:216;r.querySelector('.track').style.transform=`translateX(${-Math.max(0,C[ri]-1)*w}px)`});
  const rowH=document.querySelector('.row').offsetHeight;rowsEl.style.transform=`translateY(${-Math.max(0,R-1)*rowH}px)`;
  const g=cur();hTitle.textContent=g.t;hMeta.textContent=g.g+' · '+{live:'Available now',soon:'Coming soon',dev:'In development',film:'Now showing'}[g.s];hPlaque.textContent='Gallery No. '+String(LIB.slice(0,R).reduce((a,r)=>a+r.games.length,0)+C[R]+1).padStart(3,'0')+' · Arvin Zotix';hPlaque.style.display='inline-block';setVid(g);hDesc.textContent=g.d;
- bg.style.background=(art(g)?`linear-gradient(90deg,#031414 30%,#031414cc 55%,#03141455),url(art/${art(g)}.jpg) right/cover,`:'')+`radial-gradient(ellipse at 75% 15%,${g.c[0]}55,${g.c[1]}66 35%,#031414 75%)`;
+ bg.style.background=(pic(g)?`linear-gradient(90deg,#031414 30%,#031414cc 55%,#03141455),url(${pic(g)}) right/cover,`:'')+`radial-gradient(ellipse at 75% 15%,${g.c[0]}55,${g.c[1]}66 35%,#031414 75%)`;
  seen.add(g.t);ach.textContent='🏆 '+seen.size+'/'+total;if(seen.size===total)toast('🏆 Achievement unlocked: Window Shopper');}
 let vt;function setVid(g){clearTimeout(vt);heroVid.classList.remove('on');vt=setTimeout(()=>{if(!g.v){heroVid.removeAttribute('src');return}if(!heroVid.src.endsWith(g.v+'.mp4'))heroVid.src='clips/'+g.v+'.mp4';heroVid.play().catch(()=>{});heroVid.classList.add('on')},450)}
 let ctx;function blip(f=660){try{ctx=ctx||new AudioContext();const o=ctx.createOscillator(),v=ctx.createGain();o.type='triangle';o.frequency.value=f;v.gain.setValueAtTime(.06,ctx.currentTime);v.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.09);o.connect(v).connect(ctx.destination);o.start();o.stop(ctx.currentTime+.1)}catch(e){}}
 function move(dr,dc){if(detail.classList.contains('open'))return;R=Math.max(0,Math.min(LIB.length-1,R+dr));C[R]=Math.max(0,Math.min(LIB[R].games.length-1,C[R]+dc));blip(dr?520:700);render()}
-function openDetail(){const g=cur();dArt.textContent=g.t;dArt.style.background=bgOf(g);dMeta.textContent=g.g;dDesc.textContent=g.d;dPlay.textContent=g.cta||(g.s==='film'?'▶ Watch':g.s==='dev'?'Notify me':'Wishlist');
- dPlay.onclick=()=>{if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};dPage.style.display=MAIN.includes(g.t)?'':'none';dPage.href='games/'+g.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.html';detail.classList.add('open');blip(880)}
+function openDetail(){const g=cur();dArt.textContent=g.t;dArt.style.background=bgOf(g);dMeta.textContent=g.g;dDesc.textContent=g.d;const full=g.f&&window.ZT&&ZT.has(g.f),main=full&&!g.cta;dPlay.textContent=main?(g.s==='film'?'▶ Watch':'▶ Watch trailer'):g.cta||(g.s==='film'?'▶ Watch':g.s==='dev'?'Notify me':'Wishlist');dWatch.style.display=full&&!main?'':'none';dWatch.onclick=()=>ZT.play(g.f);
+ dPlay.onclick=()=>{if(main)ZT.play(g.f);else if(g.url)window.open(g.url,'_blank','noopener');else if(g.code){navigator.clipboard?.writeText(g.code);toast('Island code copied: '+g.code)}else toast(g.s==='film'?'Full screenings coming soon':'Noted. We\'ll ping you.')};dPage.style.display=MAIN.includes(g.t)?'':'none';dPage.href='games/'+g.t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.html';detail.classList.add('open');blip(880)}
 function closeDetail(){detail.classList.remove('open');blip(400)}
 let tt;function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),2600)}
 const toastEl=document.getElementById('toast');
 let booted=false;function endBoot(skipped){if(booted)return;booted=true;boot.style.opacity=0;setTimeout(()=>boot.remove(),800);render();if(skipped)setTimeout(()=>toast("…you can't wait, huh."),900);try{localStorage.setItem('zb','1')}catch(e){}}
 try{if(localStorage.getItem('zb')&&!location.hash.includes('boot'))endBoot(false)}catch(e){}
 setTimeout(()=>endBoot(false),5200);
-addEventListener('keydown',e=>{if(!booted)return endBoot(true);const k=e.key;
+addEventListener('keydown',e=>{if(window.ZT&&ZT.open)return;if(!booted)return endBoot(true);const k=e.key;
  if(k==='ArrowRight')move(0,1);else if(k==='ArrowLeft')move(0,-1);else if(k==='ArrowDown')move(1,0);else if(k==='ArrowUp')move(-1,0);
  else if(k==='Enter')detail.classList.contains('open')?dPlay.click():openDetail();else if(k==='Escape'||k==='Backspace')closeDetail();else return;e.preventDefault()});
 boot.addEventListener('click',()=>endBoot(true));
-addEventListener('wheel',e=>{if(booted&&!detail.classList.contains('open'))move(e.deltaY>0?1:-1,0)},{passive:true});
+addEventListener('wheel',e=>{if(booted&&!(window.ZT&&ZT.open)&&!detail.classList.contains('open'))move(e.deltaY>0?1:-1,0)},{passive:true});
 setInterval(()=>clock.textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),1000);clock.textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
-let last={},rep=0;(function pad(){const p=navigator.getGamepads?.()[0];if(p){const b=i=>p.buttons[i]?.pressed,ax=p.axes,now=performance.now();
+let last={},rep=0;(function pad(){const p=navigator.getGamepads?.()[0];if(p&&window.ZT&&ZT.open){const bb=p.buttons[1]?.pressed;if(bb&&!last.b)ZT.close();last={b:bb}}else if(p){const b=i=>p.buttons[i]?.pressed,ax=p.axes,now=performance.now();
  const s={r:b(15)||ax[0]>.5,l:b(14)||ax[0]<-.5,d:b(13)||ax[1]>.5,u:b(12)||ax[1]<-.5,a:b(0),b:b(1)};
  if(!booted&&Object.values(s).some(Boolean))endBoot(true);else{for(const k of['r','l','d','u'])if(s[k]&&(!last[k]||now>rep)){move(k==='d'?1:k==='u'?-1:0,k==='r'?1:k==='l'?-1:0);rep=now+(last[k]?120:350)}
  if(s.a&&!last.a)detail.classList.contains('open')?dPlay.click():openDetail();if(s.b&&!last.b)closeDetail()}last=s}requestAnimationFrame(pad)})();
