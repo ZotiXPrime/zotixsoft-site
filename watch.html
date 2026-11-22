@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZotixSoft Theater — game trailers and short films</title>
+<meta name="description" content="Watch ZotixSoft game trailers and short films fullscreen: Emerald Burst, Hakuya: Breath of the Titan, FLEECED!, Fangscape, Silver Sol and more.">
+<link rel="canonical" href="https://zotixsoft.com/watch">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ZotixSoft"><meta property="og:url" content="https://zotixsoft.com/watch">
+<meta property="og:title" content="ZotixSoft Theater"><meta property="og:description" content="Game trailers and short films, fullscreen.">
+<meta property="og:image" content="https://zotixsoft.com/library/films/posters/hakuya-titan.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png"><link rel="stylesheet" href="style.css">
+<style>
+main{max-width:1240px}
+h1{margin:.2em 0 .1em;font-size:clamp(30px,5vw,44px)}
+.lead{color:var(--dim);margin:0 0 20px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{background:var(--panel);color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:7px 16px;font:600 14px inherit;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--em2);color:#052e22;border-color:var(--em2)}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px 16px}
+.wall button{background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.ph{position:relative;display:block;aspect-ratio:16/9;border-radius:12px;border:1px solid var(--line);background:#000 center/cover;overflow:hidden;transition:transform .18s,border-color .18s}
+.ph.v{background-size:contain;background-repeat:no-repeat;background-color:#0b0920}
+.wall button:hover .ph,.wall button:focus-visible .ph{transform:translateY(-3px);border-color:var(--em)}
+.ph i{position:absolute;right:8px;bottom:8px;font-style:normal;font-size:12px;background:#000c;padding:2px 7px;border-radius:5px}
+.ph u{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#10b981e6;display:grid;place-items:center;opacity:0;transition:opacity .18s}
+.ph u::before{content:"";border-left:17px solid #052e22;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.wall button:hover u,.wall button:focus-visible u{opacity:1}
+.wall b{display:block;margin-top:9px;font-size:16px;line-height:1.3}
+.wall small{display:block;color:var(--em);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.wall span.m{display:block;color:var(--dim);font-size:14px;line-height:1.4;margin-top:2px}
+.keys{color:var(--dim);font-size:14px;margin-top:28px}
+kbd{border:1px solid var(--line);border-radius:5px;padding:1px 7px;background:var(--panel);font:inherit}
+</style></head>
+<body>
+<header><a href="index.html"><img src="zotixsoft.png" alt="ZotixSoft"></a>
+<nav><a href="index.html">Emerald Burst</a><a href="watch.html">Watch</a><a href="library/">Library</a><a href="hellscan.html">Hellscan</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="eula.html">EULA</a></nav></header>
+<main>
+<h1>Theater</h1>
+<p class="lead">Every trailer and short film from the studio. Pick one and it plays fullscreen, then rolls into the next.</p>
+<div class="tabs" id="tabs"><button data-f="all" aria-pressed="true">Everything</button><button data-f="film" aria-pressed="false">Films and cinematics</button><button data-f="trailer" aria-pressed="false">Game trailers</button></div>
+<div class="wall" id="wall"></div>
+<p class="keys"><kbd>Space</kbd> pause · <kbd>N</kbd> next · <kbd>P</kbd> previous · <kbd>F</kbd> fullscreen · <kbd>Esc</kbd> close</p>
+</main>
+<footer>&copy; 2026 ZotixSoft LLC<br><a href="support.html">Support</a><a href="privacy.html">Privacy Policy</a><a href="eula.html">EULA</a></footer>
+<script src="library/theater.js"></script>
+<script>
+(function(){var wall=document.getElementById('wall'),tabs=document.getElementById('tabs');
+var kind=function(f){return /trailer/i.test(f.k)&&!/Cinematic/.test(f.k)?'trailer':'film'};
+ZT.list.forEach(function(f){var b=document.createElement('button');b.dataset.film=f.id;b.dataset.kind=kind(f);
+ b.innerHTML='<span class="ph'+(f.v?' v':'')+'" style="background-image:url('+f.poster+')"><u></u><i>'+f.len+'</i></span><small></small><b></b><span class="m"></span>';
+ b.querySelector('small').textContent=f.k;b.querySelector('b').textContent=f.t;b.querySelector('.m').textContent=f.m;wall.appendChild(b)});
+wall.addEventListener('click',function(e){var b=e.target.closest('[data-film]');if(b)ZT.play(b.dataset.film)});
+tabs.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;
+ tabs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===t)});
+ wall.querySelectorAll('button').forEach(function(x){x.hidden=t.dataset.f!=='all'&&x.dataset.kind!==t.dataset.f})});
+var id=location.hash.slice(1);if(id&&ZT.has(id))ZT.play(id,true);})();
+</script>
+</body></html>

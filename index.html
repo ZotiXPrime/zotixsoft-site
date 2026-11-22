@@ -1,11 +1,49 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZotixSoft — Emerald Burst</title>
-<meta name="description" content="ZotixSoft is an independent game studio. Our first game, Emerald Burst, is a colorful 3D action adventure.">
-<link rel="icon" href="favicon.png"><link rel="stylesheet" href="style.css"></head>
+<title>ZotixSoft — Emerald Burst and more games by Arvin Setareh</title>
+<meta name="description" content="ZotixSoft is an independent game studio. Emerald Burst, a colorful 3D action adventure, is out now on the Epic Games Store. Watch trailers and short films, and play free games in your browser.">
+<link rel="canonical" href="https://zotixsoft.com/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ZotixSoft"><meta property="og:url" content="https://zotixsoft.com/">
+<meta property="og:title" content="ZotixSoft — Emerald Burst and more"><meta property="og:description" content="Emerald Burst is out now on the Epic Games Store. Trailers, short films and free games from an independent studio.">
+<meta property="og:image" content="https://zotixsoft.com/hero.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png"><link rel="stylesheet" href="style.css">
+<style>
+.lead{color:var(--dim);margin:-6px 0 16px}
+.more{font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap}
+.headrow{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.headrow h2{margin-bottom:.4em}
+.feature{position:relative;display:block;width:100%;aspect-ratio:16/9;max-height:560px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000 center/cover;cursor:pointer;padding:0;color:#fff;font:inherit;text-align:left}
+.feature::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000c,transparent 55%)}
+.feature .cap{position:absolute;left:22px;bottom:18px;right:22px;z-index:1}
+.feature .cap b{display:block;font-size:clamp(20px,3.2vw,30px);line-height:1.2}
+.feature .cap span{color:var(--em);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.play{position:absolute;z-index:1;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#10b981e6;display:grid;place-items:center;transition:transform .18s;box-shadow:0 6px 30px #0008}
+.play::before{content:"";border-left:26px solid #052e22;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px}
+.feature:hover .play,.feature:focus-visible .play{transform:scale(1.1)}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:16px 2px 12px;scroll-snap-type:x proximity}
+.rail button{flex:0 0 232px;scroll-snap-align:start;background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.rail .ph{position:relative;display:block;aspect-ratio:16/9;border-radius:10px;border:1px solid var(--line);background:#0b0920 center/cover;overflow:hidden;transition:transform .18s,border-color .18s}
+.rail .ph.v{background-size:contain;background-repeat:no-repeat}
+.rail button:hover .ph,.rail button:focus-visible .ph{transform:translateY(-3px);border-color:var(--em)}
+.rail .ph i{position:absolute;right:8px;bottom:8px;font-style:normal;font-size:12px;background:#000c;padding:2px 7px;border-radius:5px}
+.rail .ph::after{content:"";position:absolute;left:10px;bottom:10px;border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;filter:drop-shadow(0 1px 4px #000)}
+.rail b{display:block;margin-top:8px;font-size:15px;line-height:1.3}
+.rail small{color:var(--dim);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(236px,1fr));gap:14px;margin-top:8px}
+.card{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:150px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel) center/cover;color:#fff;text-decoration:none;overflow:hidden;transition:transform .18s,border-color .18s}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0b0920f2 10%,#0b092066 70%,#0b092033)}
+.card>*{position:relative}
+.card:hover,.card:focus-visible{transform:translateY(-3px);border-color:var(--em)}
+.card b{font-size:18px;line-height:1.25}
+.card span{font-size:13px;color:#d6d3ee}
+.card em{font-style:normal;align-self:flex-start;margin-bottom:auto;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:5px;background:var(--em2);color:#052e22}
+.card.dev{min-height:124px}.card.dev em{background:#000a;color:#d6d3ee}
+h3{margin:1.6em 0 .3em}
+</style>
+</head>
 <body>
 <header><a href="index.html"><img src="zotixsoft.png" alt="ZotixSoft"></a>
-<nav><a href="index.html">Emerald Burst</a><a href="library/">Library</a><a href="hellscan.html">Hellscan</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="eula.html">EULA</a></nav></header>
+<nav><a href="index.html">Emerald Burst</a><a href="watch.html">Watch</a><a href="library/">Library</a><a href="hellscan.html">Hellscan</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="eula.html">EULA</a></nav></header>
 
 <section class="hero"><div>
 <h1 class="sr">Emerald Burst</h1>
@@ -14,7 +52,41 @@
 </div></section>
 
 <main>
-<h2>About the game</h2>
+<div class="headrow"><h2 id="watch">Now showing</h2><a class="more" href="watch.html">Open the theater →</a></div>
+<p class="lead">Trailers and short films. Pick one and it plays fullscreen.</p>
+<button class="feature" data-film="emerald-burst" style="background-image:url(library/films/posters/emerald-burst.jpg)" aria-label="Play the Emerald Burst trailer">
+<span class="play"></span><span class="cap"><span>Game trailer · 1:21</span><b>Emerald Burst: launch trailer</b></span></button>
+<div class="rail" id="rail"></div>
+
+<h2 id="play">Play now</h2>
+<div class="cards">
+<a class="card" href="https://store.epicgames.com/p/emerald-burst-c1a6cc" style="background-image:url(library/art/emerald-burst.jpg)"><em>OUT NOW</em><b>Emerald Burst</b><span>3D action adventure · Epic Games Store</span></a>
+<a class="card" href="fangscape/" style="background-image:url(library/art/fangscape.jpg)"><em>FREE</em><b>Fangscape</b><span>Old-school vampire RPG · Windows</span></a>
+<a class="card" href="ballblitz/" style="background-image:linear-gradient(135deg,#2ee6d0,#04201e)"><em>FREE</em><b>Ball Blitz</b><span>Car soccer · Plays in your browser</span></a>
+<a class="card" href="library/games/target-practice-island.html" style="background-image:linear-gradient(135deg,#ff4a4a,#1a0a3a)"><em>LIVE</em><b>Target Practice Island</b><span>Fortnite island · 1883-3342-0888</span></a>
+<a class="card" href="library/games/kage-rising.html" style="background-image:linear-gradient(135deg,#2a2a2a,#a00000)"><em>LIVE</em><b>Kage Rising</b><span>Shinobi battleground · Roblox</span></a>
+<a class="card" href="library/games/fire-ice-ball.html" style="background-image:linear-gradient(135deg,#ff5a1a,#1a7aff)"><em>LIVE</em><b>Fire Ice Ball</b><span>4v4 ball game · Roblox</span></a>
+<a class="card" href="magic-card-catchers" style="background-image:linear-gradient(135deg,#7a5cff,#12082e)"><em>LIVE</em><b>Magic Card Catchers</b><span>Card collecting · Roblox</span></a>
+<a class="card" href="https://gamespheredev.itch.io/" style="background-image:linear-gradient(135deg,#fa5c5c,#2a0d1c)"><em>ITCH.IO</em><b>More on itch.io</b><span>Two dozen smaller games</span></a>
+</div>
+
+<div class="headrow"><h2 id="dev">In development</h2><a class="more" href="library/">Browse the full library →</a></div>
+<div class="cards">
+<a class="card dev" href="library/games/fleeced.html" style="background-image:url(library/art/fleeced.jpg)"><em>COMING SOON</em><b>FLEECED!</b><span>Sheep-heist stealth comedy</span></a>
+<a class="card dev" href="library/games/hakuya-squad.html" style="background-image:url(library/art/hakuya.jpg)"><em>IN DEV</em><b>Hakuya: Squad</b><span>Tag-team flash-step action</span></a>
+<a class="card dev" href="library/games/silver-sol.html" style="background-image:url(library/films/posters/silver-sol.jpg)"><em>IN DEV</em><b>Silver Sol</b><span>Elemental RPG · Unreal Engine 5</span></a>
+<a class="card dev" href="library/games/burst-league.html" style="background-image:url(library/art/burst-league.jpg)"><em>COMING SOON</em><b>Burst League</b><span>Anime hero arena soccer</span></a>
+<a class="card dev" href="library/games/god-of-pork.html" style="background-image:url(library/art/god-of-pork.jpg)"><em>COMING SOON</em><b>God of Pork</b><span>Action parody</span></a>
+<a class="card dev" href="library/games/maskbound.html" style="background-image:url(library/art/maskbound.jpg)"><em>COMING SOON</em><b>Maskbound</b><span>Mask-swapping adventure</span></a>
+<a class="card dev" href="library/games/bruise.html" style="background-image:url(library/art/bruise.jpg)"><em>IN DEV</em><b>Bruise</b><span>Comic-book city smasher</span></a>
+<a class="card dev" href="library/games/gloam.html" style="background-image:url(library/films/posters/gloam.jpg)"><em>IN DEV</em><b>Gloam</b><span>Cave action with real-time light</span></a>
+<a class="card dev" href="library/games/slamfire.html" style="background-image:url(library/art/slamfire.jpg)"><em>IN DEV</em><b>SLAMFIRE</b><span>Horde shooter</span></a>
+<a class="card dev" href="library/games/dirk-kaboom.html" style="background-image:url(library/art/dirk.jpg)"><em>IN DEV</em><b>Dirk Kaboom</b><span>Retro shooter</span></a>
+<a class="card dev" href="library/games/the-bender.html" style="background-image:url(library/art/bender.jpg)"><em>IN DEV</em><b>The Bender</b><span>Elemental puzzles</span></a>
+<a class="card dev" href="library/games/midnight-takedown.html" style="background-image:url(library/art/midnight.jpg)"><em>IN DEV</em><b>Midnight Takedown</b><span>Arcade takedown racing</span></a>
+</div>
+
+<h2>About Emerald Burst</h2>
 <p>Twenty years ago, the Great Burst tore Emerald Isle into the sky. Cities rose into the clouds, oceans forgot how to fall, and Glitches crawled out of the cracks in reality. Kyro is just a courier, until something ancient pours into him. Now he glows.</p>
 <ul class="feat">
 <li>Combo-driven 3D action with dodges, dashes, lock-on and finishers</li>
@@ -31,11 +103,20 @@
 </div>
 <h2>Also from ZotixSoft</h2>
 <h3 id="fleeced">FLEECED!</h3>
-<p>A cartoon sheep-heist stealth game. Slick the fox has the clock running and a flock to steal, while goose deputies gossip and the sheriff hits the flask. Coming soon.</p>
+<p>A cartoon sheep-heist stealth game. Slick the fox has the clock running and a flock to steal, while goose deputies gossip and the sheriff hits the flask. Coming soon. <a href="library/games/fleeced.html">Read more about FLEECED!</a></p>
 <div style="position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1px solid #2e2a5c;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BBEPznCH1vk" title="FLEECED! trailer" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>
+<h3>Hellscan</h3>
 <p><a href="hellscan.html">Hellscan</a> is a security companion for Windows. Scorch, a small emerald dragon, checks what starts with your PC and sniffs every new download.</p>
 <h2>About ZotixSoft</h2>
-<p>ZotixSoft is a small independent studio founded by <a href="arvin-setareh.html">Arvin Setareh</a>. Contact: <a href="mailto:zotixgameshop@gmail.com">zotixgameshop@gmail.com</a></p>
+<p>ZotixSoft is a small independent studio founded by <a href="arvin-setareh.html">Arvin Setareh</a>. The games here are built in Unreal Engine 5, in raylib, and on an in-house C++ and SDL3 engine, alongside islands for Fortnite and experiences for Roblox. Contact: <a href="mailto:zotixgameshop@gmail.com">zotixgameshop@gmail.com</a></p>
 </main>
 <footer>&copy; 2026 ZotixSoft LLC<br><a href="support.html">Support</a><a href="privacy.html">Privacy Policy</a><a href="eula.html">EULA</a></footer>
+<script src="library/theater.js"></script>
+<script>
+(function(){if(!window.ZT)return;var rail=document.getElementById('rail');
+ZT.list.slice(1,13).forEach(function(f){var b=document.createElement('button');b.dataset.film=f.id;
+ b.innerHTML='<span class="ph'+(f.v?' v':'')+'" style="background-image:url('+f.poster+')"><i>'+f.len+'</i></span><b></b><small></small>';
+ b.querySelector('b').textContent=f.t;b.querySelector('small').textContent=f.k;rail.appendChild(b)});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-film]');if(b)ZT.play(b.dataset.film)});})();
+</script>
 </body></html>
