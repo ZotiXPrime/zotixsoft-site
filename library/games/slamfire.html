@@ -92,6 +92,7 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
 <section><h2>More from Shooters</h2><div class="peers"><a class="tile" href="dirk-kaboom.html" style="background:url(../art/dirk.jpg) center/cover,linear-gradient(135deg,#ffd23a,#301800)"><span>Dirk Kaboom</span></a><a class="tile" href="xenith-overload.html" style="background:linear-gradient(135deg,#a04aff,#10042a)"><span>Xenith: OverLoad</span></a><a class="tile" href="gloam.html" style="background:linear-gradient(135deg,#ffaa40,#05050f)"><span>Gloam</span></a></div></section>
 <footer>© 2026 ZotixSoft LLC · Made by <a href="/arvin-setareh">Arvin Setareh</a></footer>
 <div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+<script src="../theater.js"></script>
 <script>
 document.querySelectorAll('.shots img').forEach(i=>i.onclick=()=>{lb.querySelector('img').src=i.src;lb.style.display='flex'});
 addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='Backspace'){if(lb.style.display==='flex')lb.style.display='none';else location.href='../'}});

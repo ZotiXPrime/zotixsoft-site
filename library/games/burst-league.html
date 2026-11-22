@@ -82,7 +82,7 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
   <h1>Burst League</h1>
   <p class="desc">Arena soccer played by anime heroes instead of cars. Fly, boost-run and blast the ball with ki beams, signature skills and power-ups as Kyro and the Emerald Burst cast. Coming soon to PC.</p>
   <div class="plaque">Gallery No. 007 · Featured · Arvin Zotix</div>
-  <div class="btns"><a class="btn ghost" href="../">Back to Library</a></div>
+  <div class="btns"><button class="btn" onclick="ZT.play(&quot;burst-league&quot;)">▶ Watch trailer fullscreen</button><a class="btn ghost" href="../">Back to Library</a></div>
  </div>
 </div>
 
@@ -93,6 +93,7 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
 <section><h2>More from Featured</h2><div class="peers"><a class="tile" href="emerald-burst.html" style="background:url(../art/emerald-burst.jpg) center/cover,linear-gradient(135deg,#0f9b4a,#04331a)"><span>Emerald Burst</span></a><a class="tile" href="silver-sol.html" style="background:linear-gradient(135deg,#a9b8d6,#2b3550)"><span>Silver Sol</span></a><a class="tile" href="hakuya-squad.html" style="background:url(../art/hakuya.jpg) center/cover,linear-gradient(135deg,#e8e8f0,#3a1240)"><span>Hakuya: Squad</span></a><a class="tile" href="maskbound.html" style="background:url(../art/maskbound.jpg) center/cover,linear-gradient(135deg,#d48a2a,#3b1a08)"><span>Maskbound</span></a></div></section>
 <footer>© 2026 ZotixSoft LLC · Made by <a href="/arvin-setareh">Arvin Setareh</a></footer>
 <div id="lb" onclick="this.style.display='none'"><img alt=""></div>
+<script src="../theater.js"></script>
 <script>
 document.querySelectorAll('.shots img').forEach(i=>i.onclick=()=>{lb.querySelector('img').src=i.src;lb.style.display='flex'});
 addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='Backspace'){if(lb.style.display==='flex')lb.style.display='none';else location.href='../'}});
