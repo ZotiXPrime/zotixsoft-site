@@ -67,6 +67,11 @@ h2{font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
 .faq p{margin:8px 0 0;font-size:15px;line-height:1.6;color:#cfeeea}
 footer{padding:40px 48px;color:var(--dim);font-size:13px}
 .yt{position:relative;aspect-ratio:16/9;max-width:1100px;border-radius:12px;overflow:hidden;border:1px solid #ffffff1a;background:#000}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.vid{margin:0;border-radius:10px;overflow:hidden;border:1px solid #ffffff1a;background:#000}
+.vid video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.vid figcaption{padding:10px 14px;font-size:14px;color:#cfeeea;background:#ffffff08}
+.vid.wide{grid-column:1/-1;max-width:1100px}
 .yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 #lb{position:fixed;inset:0;background:#000e;display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
 #lb img{max-width:94vw;max-height:90vh;border-radius:8px}
@@ -75,7 +80,7 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
 </head>
 <body class="">
 <header><a href="/"><img src="../art/zotixsoft_logo_transparent.png" alt="ZOTIXSOFT"></a><a class="back" href="../">← Library</a></header>
-<div class="hero"><img src="../art/maskbound.jpg" alt="">
+<div class="hero"><video src="../clips/maskbound-clip.mp4" autoplay muted loop playsinline poster="../art/maskbound.jpg"></video>
  <div class="info">
   <div class="meta">Adventure · Coming soon</div>
   <h1>Maskbound</h1>
@@ -85,11 +90,12 @@ footer{padding:40px 48px;color:var(--dim);font-size:13px}
  </div>
 </div>
 
+<section id="videos"><h2>Gameplay footage</h2><div class="vids"><figure class="vid"><video src="../clips/maskbound-demo.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-demo.jpg"></video><figcaption>The full arsenal: sword, fire whip, hammer, bombs and the god combo</figcaption></figure><figure class="vid"><video src="../clips/maskbound-temple.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-temple.jpg"></video><figcaption>Inside the Fire Temple</figcaption></figure><figure class="vid"><video src="../clips/maskbound-moon.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-moon.jpg"></video><figcaption>The Moon realm</figcaption></figure><figure class="vid"><video src="../clips/maskbound-ice.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-ice.jpg"></video><figcaption>The Ice realm</figcaption></figure><figure class="vid"><video src="../clips/maskbound-void.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-void.jpg"></video><figcaption>Into the Void</figcaption></figure><figure class="vid"><video src="../clips/maskbound-crown.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-crown.jpg"></video><figcaption>The Crown realm</figcaption></figure><figure class="vid"><video src="../clips/maskbound-sky.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-sky.jpg"></video><figcaption>The Skyway: islands and drifting platforms</figcaption></figure><figure class="vid"><video src="../clips/maskbound-whip.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-whip.jpg"></video><figcaption>Whip string: sweep, crack, rise, meteor</figcaption></figure><figure class="vid"><video src="../clips/maskbound-intro.mp4" controls playsinline preload="none" muted loop poster="../clips/maskbound-intro.jpg"></video><figcaption>The opening: the legend of the mask</figcaption></figure></div></section>
 
 
-<section><h2>Gallery</h2><div class="shots"><img src="../art/maskbound.jpg" alt="Maskbound screenshot 1" loading="lazy"></div></section>
+<section><h2>Gallery</h2><div class="shots"><img src="../art/maskbound.jpg" alt="Maskbound screenshot 1" loading="lazy"><img src="../art/shots/maskbound-0.jpg" alt="Maskbound screenshot 2" loading="lazy"><img src="../art/shots/maskbound-1.jpg" alt="Maskbound screenshot 3" loading="lazy"><img src="../art/shots/maskbound-2.jpg" alt="Maskbound screenshot 4" loading="lazy"><img src="../art/shots/maskbound-3.jpg" alt="Maskbound screenshot 5" loading="lazy"><img src="../art/shots/maskbound-4.jpg" alt="Maskbound screenshot 6" loading="lazy"><img src="../art/shots/maskbound-5.jpg" alt="Maskbound screenshot 7" loading="lazy"><img src="../art/shots/maskbound-6.jpg" alt="Maskbound screenshot 8" loading="lazy"><img src="../art/shots/maskbound-7.jpg" alt="Maskbound screenshot 9" loading="lazy"><img src="../art/shots/maskbound-8.jpg" alt="Maskbound screenshot 10" loading="lazy"></div></section>
 
-<section><h2>More from Featured</h2><div class="peers"><a class="tile" href="emerald-burst.html" style="background:url(../art/emerald-burst.jpg) center/cover,linear-gradient(135deg,#0f9b4a,#04331a)"><span>Emerald Burst</span></a><a class="tile" href="silver-sol.html" style="background:linear-gradient(135deg,#a9b8d6,#2b3550)"><span>Silver Sol</span></a><a class="tile" href="hakuya-squad.html" style="background:url(../art/hakuya.jpg) center/cover,linear-gradient(135deg,#e8e8f0,#3a1240)"><span>Hakuya: Squad</span></a><a class="tile" href="god-of-pork.html" style="background:url(../art/god-of-pork.jpg) center/cover,linear-gradient(135deg,#e06a8a,#3a0a14)"><span>God of Pork</span></a></div></section>
+<section><h2>More from Featured</h2><div class="peers"><a class="tile" href="emerald-burst.html" style="background:url(../art/emerald-burst.jpg) center/cover,linear-gradient(135deg,#0f9b4a,#04331a)"><span>Emerald Burst</span></a><a class="tile" href="silver-sol.html" style="background:linear-gradient(135deg,#a9b8d6,#2b3550)"><span>Silver Sol</span></a><a class="tile" href="hakuya-squad.html" style="background:url(../art/hakuya.jpg) center/cover,linear-gradient(135deg,#e8e8f0,#3a1240)"><span>Hakuya: Squad</span></a><a class="tile" href="sigilfall.html" style="background:url(../art/sigilfall.jpg) center/cover,linear-gradient(135deg,#d4a52a,#1a0f05)"><span>SIGILFALL</span></a></div></section>
 <footer>© 2026 ZotixSoft LLC · Made by <a href="/arvin-setareh">Arvin Setareh</a></footer>
 <div id="lb" onclick="this.style.display='none'"><img alt=""></div>
 <script src="../theater.js"></script>
