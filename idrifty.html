@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iDrifty | Live on Twitch | ZotixSoft</title>
+<meta name="description" content="iDrifty streams Rocket League on Twitch. Watch live, catch the chat, and see the SideSwipe W.">
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --tw: #9146ff; --tw2: #b48bff; --live: #ff3b5c; }
+  .dr-hero { position: relative; overflow: hidden; padding: 56px 20px 40px; text-align: center; border-bottom: 1px solid var(--line);
+    background: radial-gradient(1200px 400px at 50% -80px, rgba(145,70,255,.35), transparent 70%), radial-gradient(700px 300px at 85% 110%, rgba(52,211,153,.18), transparent 70%), var(--bg); }
+  .dr-hero::before { content: ""; position: absolute; inset: -50% -10%; pointer-events: none;
+    background: repeating-linear-gradient(115deg, transparent 0 46px, rgba(145,70,255,.07) 46px 48px);
+    animation: drift 14s linear infinite; }
+  @keyframes drift { to { transform: translateX(96px); } }
+  .dr-hero > * { position: relative; }
+  .avatar { width: 132px; height: 132px; border-radius: 50%; border: 4px solid var(--tw); box-shadow: 0 0 0 6px rgba(145,70,255,.2), 0 10px 40px rgba(145,70,255,.45); background: var(--panel); object-fit: cover; }
+  .avatar.on { border-color: var(--live); box-shadow: 0 0 0 6px rgba(255,59,92,.22), 0 10px 40px rgba(255,59,92,.5); }
+  .dr-hero h1 { font-size: clamp(40px, 8vw, 76px); margin: 14px 0 4px; letter-spacing: -1px; font-style: italic;
+    background: linear-gradient(90deg, #fff, var(--tw2) 55%, var(--em)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tag { color: var(--dim); margin: 0 0 18px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 13px; letter-spacing: 1.5px; padding: 6px 14px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); color: var(--dim); }
+  .badge i { width: 9px; height: 9px; border-radius: 50%; background: #6b678f; }
+  .badge.on { background: var(--live); border-color: var(--live); color: #fff; }
+  .badge.on i { background: #fff; animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+  .stats { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 22px 0 26px; }
+  .stat { background: rgba(28,24,64,.8); border: 1px solid var(--line); border-radius: 12px; padding: 10px 18px; min-width: 130px; }
+  .stat b { display: block; font-size: 22px; color: var(--ink); }
+  .stat span { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+  .btn.tw { background: var(--tw); color: #fff; }
+  .btn.tw:hover { background: var(--tw2); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); margin-left: 8px; }
+  .btn.ghost:hover { border-color: var(--tw); background: transparent; }
+  main.dr { max-width: 1280px; }
+  .now { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--tw); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; }
+  .now small { color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+  .now div { font-weight: 600; overflow-wrap: anywhere; }
+  .stage { display: grid; grid-template-columns: 1fr 340px; gap: 14px; }
+  .player, .chat { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+  .player { aspect-ratio: 16/9; }
+  .chat { height: 100%; min-height: 420px; }
+  .chat iframe, .player > div, .player iframe { width: 100%; height: 100%; border: 0; display: block; }
+  @media (max-width: 960px) { .stage { grid-template-columns: 1fr; } .chat { height: 480px; } }
+  .w-card { display: grid; grid-template-columns: minmax(0, 1.4fr) 1fr; gap: 22px; align-items: center; background: linear-gradient(135deg, rgba(145,70,255,.14), rgba(52,211,153,.10)); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .w-card .yt { aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #000; }
+  .w-card .yt iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .w-card h3 { font-size: 30px; margin: 0 0 6px; font-style: italic; }
+  .w-card h3 em { color: var(--em); font-style: inherit; }
+  .w-card p { color: var(--dim); margin: 0 0 14px; }
+  @media (max-width: 600px) { nav { display: flex; flex-wrap: wrap; gap: 4px 16px; } nav a { margin: 0; } }
+  @media (max-width: 760px) { .w-card { grid-template-columns: 1fr; } .btn.ghost { margin: 10px 0 0; } }
+</style>
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+</head>
+<body>
+<header><a href="index.html"><img src="zotixsoft.png" alt="ZotixSoft"></a>
+<nav><a href="index.html">Emerald Burst</a><a href="watch.html">Watch</a><a href="library/">Library</a><a href="idrifty.html" style="color:var(--tw2)">iDrifty</a><a href="hellscan.html">Hellscan</a><a href="support.html">Support</a></nav></header>
+
+<section class="dr-hero">
+  <img id="avatar" class="avatar" src="https://static-cdn.jtvnw.net/jtv_user_pictures/366fd61b-30b9-475d-8be3-ad1f074d635d-profile_image-300x300.png" alt="iDrifty">
+  <h1>iDrifty</h1>
+  <p class="tag">Rocket League on Twitch. Aerials, flicks, and talking trash after.</p>
+  <span id="badge" class="badge"><i></i><span id="badgeText">CHECKING…</span></span>
+  <div class="stats">
+    <div class="stat"><b id="sFollow">-</b><span>Followers</span></div>
+    <div class="stat"><b id="sGame">-</b><span>Playing</span></div>
+    <div class="stat"><b id="sUp">Offline</b><span>Uptime</span></div>
+  </div>
+  <a class="btn tw" href="https://www.twitch.tv/idrifty" target="_blank" rel="noopener">Follow on Twitch</a><a class="btn ghost" href="https://www.twitch.tv/subs/idrifty" target="_blank" rel="noopener">Subscribe</a>
+</section>
+
+<main class="dr">
+  <div class="now"><small>Stream title</small><div id="title">Loading…</div></div>
+  <div class="stage">
+    <div class="player" id="player"></div>
+    <div class="chat" id="chat"></div>
+  </div>
+
+  <h2>The SideSwipe W</h2>
+  <div class="w-card">
+    <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/oSvV17r4JgI" title="iDrifty vs Reflex, Rocket League SideSwipe" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+    <div>
+      <h3>iDrifty <em>vs</em> Reflex</h3>
+      <p>One minute of Rocket League SideSwipe. Reflex showed up, and you can see how it went.</p>
+      <a class="btn" href="https://www.youtube.com/watch?v=oSvV17r4JgI" target="_blank" rel="noopener">Watch on YouTube</a>
+    </div>
+  </div>
+</main>
+
+<footer>&copy; 2026 ZotixSoft LLC<br><a href="support.html">Support</a><a href="privacy.html">Privacy Policy</a><a href="eula.html">EULA</a></footer>
+
+<script>
+(function () {
+  var CH = 'idrifty';
+  var PARENTS = ['zotixsoft.com', 'www.zotixsoft.com', 'zotixprime.github.io', 'localhost', '127.0.0.1'];
+  var host = location.hostname;
+  if (host && PARENTS.indexOf(host) < 0) PARENTS.push(host);
+  var $ = function (id) { return document.getElementById(id); };
+
+  // Live player (Twitch's official embed). It also reports when the channel goes live or offline.
+  function setLive(on) {
+    $('badge').classList.toggle('on', on);
+    $('avatar').classList.toggle('on', on);
+    $('badgeText').textContent = on ? 'LIVE NOW' : 'OFFLINE';
+  }
+  try {
+    var embed = new Twitch.Embed('player', { width: '100%', height: '100%', channel: CH, layout: 'video', autoplay: true, muted: true, parent: PARENTS });
+    embed.addEventListener(Twitch.Player.ONLINE, function () { setLive(true); refresh(); });
+    embed.addEventListener(Twitch.Player.OFFLINE, function () { setLive(false); refresh(); });
+  } catch (e) {
+    $('player').innerHTML = '<iframe src="https://player.twitch.tv/?channel=' + CH + '&muted=true&parent=' + PARENTS.join('&parent=') + '" allowfullscreen></iframe>';
+  }
+
+  var dark = '&darkpopout';
+  $('chat').innerHTML = '<iframe title="iDrifty chat" src="https://www.twitch.tv/embed/' + CH + '/chat?' + dark.slice(1) + '&parent=' + PARENTS.join('&parent=') + '"></iframe>';
+
+  // Stream info. The Twitch API needs a secret key, and a static site can't keep one, so this uses the
+  // public DecAPI proxy. If DecAPI is down, the fields keep their placeholders and the player still works.
+  function get(what) {
+    return fetch('https://decapi.me/twitch/' + what + '/' + CH, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.text() : ''; })
+      .then(function (t) { t = (t || '').trim(); return /^(error|no user|user not found)/i.test(t) ? '' : t; })
+      .catch(function () { return ''; });
+  }
+  function fmt(n) { n = +n; return n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? (n / 1e3).toFixed(n >= 1e5 ? 0 : 1) + 'K' : String(n); }
+  function refresh() {
+    get('title').then(function (t) { $('title').textContent = t || 'twitch.tv/idrifty'; });
+    get('game').then(function (t) { if (t) $('sGame').textContent = t; });
+    get('followcount').then(function (t) { if (/^\d+$/.test(t)) $('sFollow').textContent = fmt(t); });
+    get('uptime').then(function (t) {
+      var live = t && !/offline/i.test(t);
+      $('sUp').textContent = live ? t.replace(/ hours?,?/, 'h').replace(/ minutes?,?/, 'm').replace(/ seconds?/, 's') : 'Offline';
+      if (t) setLive(!!live);
+    });
+  }
+  refresh();
+  setInterval(refresh, 60000);
+})();
+</script>
+</body>
+</html>
