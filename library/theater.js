@@ -4,6 +4,9 @@
 const B='/library/films/';
 const list=[
  {id:'emerald-burst',parts:3,t:'Emerald Burst',k:'Game trailer',m:'Out now on the Epic Games Store',len:'1:21'},
+ {id:'dirk-kaboom',t:'Dirk Kaboom',k:'Gameplay',m:'Seven candy-coloured guns in a neon retro FPS, ice bow included',len:'0:29'},
+ {id:'riff-rampage',t:'Riff Rampage',k:'Gameplay',m:'A guitar-swinging rock platformer, World 1',len:'0:35'},
+ {id:'xenith-overload',t:'Xenith: OverLoad',k:'Gameplay',m:'Eight plasma guns and a plasma katana on a ringworld',len:'0:30'},
  {id:'hakuya-titan',parts:3,t:'Hakuya: Breath of the Titan',k:'Short film',m:'The squad against a mountain titan, cut to an original song',len:'2:52'},
  {id:'hakuya-op',parts:2,t:'Hakuya: Opening',k:'Anime opening',m:'The cel-shaded opening that started it all',len:'0:47',v:1},
  {id:'hakuya-squad',parts:2,t:'Hakuya: Squad',k:'Game trailer',m:'A cocky flash-step squad you swap between mid-combo',len:'0:50'},
