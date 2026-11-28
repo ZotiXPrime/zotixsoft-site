@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prism Crunch — ZotixSoft</title>
+<meta name="description" content="A bowl of prismatic, colorful crunch from ZotixSoft. Move, click and pour.">
+<link rel="canonical" href="https://zotixsoft.com/prism.html">
+<meta property="og:title" content="Prism Crunch — ZotixSoft"><meta property="og:description" content="Part of a prismatic breakfast. Move, click and pour.">
+<link rel="icon" href="favicon.png"><link rel="stylesheet" href="style.css">
+<style>
+html,body{height:100%}
+body{overflow-x:hidden;transition:background .5s,color .5s}
+header,main,footer{position:relative;z-index:2}
+header{background:#120f2bb3;backdrop-filter:blur(8px);transition:background .5s}
+#sky{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(70px) saturate(1.5);opacity:.55;transition:opacity .5s}
+#sky i{position:absolute;width:46vmax;height:46vmax;border-radius:50%;mix-blend-mode:screen;animation:drift 22s ease-in-out infinite alternate}
+#sky i:nth-child(1){left:2%;top:4%;background:#ff3b5c}
+#sky i:nth-child(2){left:52%;top:-6%;background:#ffd92e;animation-duration:27s;animation-delay:-6s}
+#sky i:nth-child(3){left:30%;top:46%;background:#2fd6ff;animation-duration:31s;animation-delay:-12s}
+#sky i:nth-child(4){left:-8%;top:54%;background:#7a5cff;animation-duration:25s;animation-delay:-3s}
+#sky i:nth-child(5){left:64%;top:50%;background:#5fe04a;animation-duration:29s;animation-delay:-17s}
+#sky i:nth-child(6){left:40%;top:10%;background:#ff5fd2;animation-duration:35s;animation-delay:-9s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(12vmax,-8vmax) scale(1.25)}100%{transform:translate(-10vmax,9vmax) scale(.85)}}
+#beams{position:fixed;left:50%;top:50%;width:220vmax;height:220vmax;margin:-110vmax 0 0 -110vmax;z-index:0;pointer-events:none;opacity:.16;mix-blend-mode:screen;
+ background:repeating-conic-gradient(from 0deg,#ff3b5c 0 4deg,transparent 4deg 14deg,#ffd92e 14deg 17deg,transparent 17deg 30deg,#2fd6ff 30deg 34deg,transparent 34deg 47deg,#ff5fd2 47deg 50deg,transparent 50deg 60deg);
+ -webkit-mask:radial-gradient(circle,transparent 0,#000 22%,transparent 62%);mask:radial-gradient(circle,transparent 0,#000 22%,transparent 62%);animation:spin 90s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+main{max-width:none;min-height:calc(100vh - 150px);display:grid;place-items:center;text-align:center;padding:40px 16px 64px}
+.kick{font-size:13px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin:0}
+h1{margin:.12em 0 .1em;font-size:clamp(46px,13vw,168px);font-weight:900;letter-spacing:-.03em;line-height:.95;filter:drop-shadow(0 6px 0 #0006) drop-shadow(0 0 34px #ffffff33)}
+h1 span{display:inline-block;color:#ff3b5c;animation:bop 1.6s ease-in-out infinite,hue 5s linear infinite;animation-delay:calc(var(--i)*-.13s),calc(var(--i)*-.55s)}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+@keyframes bop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-.06em) rotate(calc((var(--i) - 4)*.6deg))}}
+.tag{font-size:clamp(17px,2.4vw,22px);max-width:560px;margin:10px auto 26px;text-shadow:0 2px 12px #0009}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.row button{font:inherit;font-weight:800;font-size:16px;padding:12px 22px;border-radius:999px;border:0;cursor:pointer;color:#1a1030;background:#fff;box-shadow:0 5px 0 #0005;transition:transform .12s,box-shadow .12s}
+.row button:hover{transform:translateY(-2px);box-shadow:0 7px 0 #0005}
+.row button:active{transform:translateY(3px);box-shadow:0 2px 0 #0005}
+.row button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#pour{background:linear-gradient(90deg,#ffd92e,#ff8a1f)}
+#flavor{background:linear-gradient(90deg,#2fd6ff,#5fe04a)}
+#milk{background:#fff6e6}
+.hint{margin-top:22px;color:var(--dim);font-size:14px}
+body.milk{background:#fff4df;color:#2a1c3d;--dim:#6b5a80;--line:#ecd9b8}
+body.milk header{background:#fff4dfcc}
+body.milk #sky{opacity:.38}
+body.milk #sky i{mix-blend-mode:multiply}
+body.milk #beams{mix-blend-mode:multiply;opacity:.1}
+body.milk .tag{text-shadow:none}
+body.milk h1{filter:drop-shadow(0 6px 0 #2a1c3d22)}
+@media (prefers-reduced-motion:reduce){#sky i,#beams{animation:none}h1 span{animation:none;filter:hue-rotate(calc(var(--i)*40deg))}}
+</style>
+</head>
+<body>
+<div id="sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div id="beams" aria-hidden="true"></div>
+<canvas id="c" aria-hidden="true"></canvas>
+
+<header><a href="index.html"><img src="zotixsoft.png" alt="ZotixSoft"></a>
+<nav><a href="index.html">Emerald Burst</a><a href="watch.html">Watch</a><a href="library/">Library</a><a href="idrifty.html">iDrifty</a><a href="hellscan.html">Hellscan</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="eula.html">EULA</a></nav></header>
+
+<main><div>
+<p class="kick">Part of a prismatic breakfast</p>
+<h1 id="title" aria-label="ZotixSoft">ZOTIXSOFT</h1>
+<p class="tag">Now with 100% more crunch. Wave your cursor through the bowl, click to burst it, or pour yourself another serving.</p>
+<div class="row">
+<button id="pour" type="button">Pour more</button>
+<button id="flavor" type="button">Flavor: Fruity</button>
+<button id="milk" type="button" aria-pressed="false">Add milk</button>
+</div>
+<p class="hint">Contains zero nutritional value.</p>
+</div></main>
+
+<footer>© ZotixSoft <a href="index.html">Home</a><a href="library/">Library</a><a href="privacy.html">Privacy</a></footer>
+
+<script>
+(function(){
+var title=document.getElementById('title');
+title.innerHTML=title.textContent.split('').map(function(ch,i){return '<span aria-hidden="true" style="--i:'+i+'">'+ch+'</span>'}).join('');
+
+var cv=document.getElementById('c'),g=cv.getContext('2d');
+var W=0,H=0,D=1,still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var FLAVORS=[
+ ['Fruity',['#ff3b5c','#ff8a1f','#ffd92e','#5fe04a','#2fd6ff','#7a5cff','#ff5fd2']],
+ ['Emerald',['#34d399','#10b981','#a7f3d0','#5fe04a','#d9f99d','#2ee6d0','#ffffff']],
+ ['Berry',['#ff5fd2','#c026d3','#7a5cff','#3b82f6','#ff3b5c','#f9a8d4','#a5b4fc']],
+ ['Sherbet',['#ffb3c7','#ffd6a5','#fdffb6','#caffbf','#9bf6ff','#bdb2ff','#ffc6ff']]
+],fi=0,sprites=[];
+var SS=56,SHAPES=4;
+
+function shade(hex,k){var n=parseInt(hex.slice(1),16),r=n>>16,gr=n>>8&255,b=n&255;
+ function f(v){return Math.max(0,Math.min(255,Math.round(k>0?v+(255-v)*k:v*(1+k))))}
+ return 'rgb('+f(r)+','+f(gr)+','+f(b)+')'}
+function makeSprite(col,seed){
+ var c=document.createElement('canvas');c.width=c.height=SS;var x=c.getContext('2d'),R=SS/2,n=9,pts=[],i;
+ var rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
+ for(i=0;i<n;i++){var a=i/n*6.283,r=R*(.62+rnd()*.3);pts.push([R+Math.cos(a)*r,R+Math.sin(a)*r*(.72+rnd()*.2)])}
+ x.beginPath();
+ for(i=0;i<n;i++){var p=pts[i],q=pts[(i+1)%n],mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2;if(!i)x.moveTo(mx,my);
+  var q2=pts[(i+2)%n];x.quadraticCurveTo(q[0],q[1],(q[0]+q2[0])/2,(q[1]+q2[1])/2)}
+ x.closePath();
+ var gr=x.createRadialGradient(R*.75,R*.65,2,R,R,R);gr.addColorStop(0,shade(col,.45));gr.addColorStop(.55,col);gr.addColorStop(1,shade(col,-.28));
+ x.fillStyle=gr;x.fill();x.save();x.clip();
+ x.fillStyle=shade(col,-.4);x.globalAlpha=.35;
+ for(i=0;i<7;i++){x.beginPath();x.arc(R+(rnd()-.5)*R*1.2,R+(rnd()-.5)*R*.9,1+rnd()*2.6,0,6.3);x.fill()}
+ x.globalAlpha=.55;x.fillStyle='#fff';x.beginPath();x.ellipse(R*.72,R*.62,R*.26,R*.11,-.5,0,6.3);x.fill();
+ x.restore();return c}
+function bake(){sprites=[];var cols=FLAVORS[fi][1];
+ for(var i=0;i<cols.length;i++)for(var s=0;s<SHAPES;s++)sprites.push(makeSprite(cols[i],1234+i*97+s*31))}
+
+var P=[],rings=[],stars=[],mx=-9999,my=-9999,pvx=0,pvy=0,t=0;
+function mk(x,y,vx,vy,life){var z=.35+Math.random()*.65;
+ return{x:x,y:y,vx:vx,vy:vy,z:z,s:(.28+Math.random()*.5)*z+.18,r:Math.random()*6.28,vr:(Math.random()-.5)*.05,k:Math.random()*999|0,life:life||0,age:0,ph:Math.random()*6.28}}
+function base(){return Math.round(Math.min(420,Math.max(110,W*H/5200)))}
+function fill(){var b=base(),n=0,i;for(i=0;i<P.length;i++)if(!P[i].life)n++;
+ for(;n<b;n++)P.push(mk(Math.random()*W,Math.random()*H,0,0));
+ if(n>b){var cut=n-b;P=P.filter(function(p){return p.life||cut--<=0})}
+ stars=[];for(i=0;i<46;i++)stars.push({x:Math.random(),y:Math.random(),p:Math.random()*6.28,s:2+Math.random()*5,h:Math.random()*360})}
+function size(){D=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;g.setTransform(D,0,0,D,0,0);fill();if(still)draw()}
+
+function burst(x,y,n,pw){
+ for(var i=0;i<n&&P.length<950;i++){var a=Math.random()*6.283,v=(2+Math.random()*9)*pw;P.push(mk(x,y,Math.cos(a)*v,Math.sin(a)*v-2,260+Math.random()*200))}
+ for(i=0;i<P.length;i++){var p=P[i],dx=p.x-x,dy=p.y-y,d=Math.hypot(dx,dy)+1;if(d<340){var f=(1-d/340)*13*pw;p.vx+=dx/d*f;p.vy+=dy/d*f;p.vr+=(Math.random()-.5)*.3}}
+ rings.push({x:x,y:y,r:8,a:1})}
+function pour(){var n=Math.min(170,950-P.length);
+ for(var i=0;i<n;i++){var p=mk(W*(.15+Math.random()*.7),-30-Math.random()*H*.7,(Math.random()-.5)*2,5+Math.random()*7,520+Math.random()*320);P.push(p)}}
+
+function step(){
+ t+=.016;pvx*=.85;pvy*=.85;
+ for(var i=P.length-1;i>=0;i--){var p=P[i];
+  var a=Math.sin(p.x*.0026+t*.35)+Math.cos(p.y*.0031-t*.27)+p.ph;
+  p.vx+=Math.cos(a*1.7)*.035*p.z;p.vy+=Math.sin(a*1.7)*.035*p.z+.012*p.z;
+  var dx=p.x-mx,dy=p.y-my,d2=dx*dx+dy*dy;
+  if(d2<32400){var d=Math.sqrt(d2)+1,f=(1-d/180);p.vx+=(dx/d*.9-dy/d*.5)*f+pvx*.03*f;p.vy+=(dy/d*.9+dx/d*.5)*f+pvy*.03*f;p.vr+=f*.01}
+  p.vx*=.972;p.vy*=.972;p.vr*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr+.004;
+  if(p.life){if(++p.age>p.life){P.splice(i,1);continue}}
+  if(p.x<-40)p.x=W+40;else if(p.x>W+40)p.x=-40;
+  if(p.y>H+40)p.y=-40;else if(p.y<-60&&p.vy<0)p.y=H+40}
+ for(i=rings.length-1;i>=0;i--){var r=rings[i];r.r+=9;r.a*=.955;if(r.a<.03)rings.splice(i,1)}}
+function draw(){
+ g.clearRect(0,0,W,H);var i,n=sprites.length;
+ g.globalCompositeOperation='lighter';
+ for(i=0;i<stars.length;i++){var s=stars[i],tw=.5+.5*Math.sin(t*2.2+s.p),sz=s.s*(.4+tw),x=s.x*W,y=s.y*H;
+  g.globalAlpha=tw*.8;g.fillStyle='hsl('+((s.h+t*40)%360)+',100%,72%)';
+  g.beginPath();g.moveTo(x,y-sz);g.quadraticCurveTo(x,y,x+sz,y);g.quadraticCurveTo(x,y,x,y+sz);g.quadraticCurveTo(x,y,x-sz,y);g.quadraticCurveTo(x,y,x,y-sz);g.fill()}
+ for(i=0;i<rings.length;i++){var r=rings[i];
+  for(var k=0;k<6;k++){g.globalAlpha=r.a*.7;g.strokeStyle='hsl('+(k*55+t*120)%360+',100%,62%)';g.lineWidth=5;g.beginPath();g.arc(r.x,r.y,Math.max(1,r.r-k*7),0,6.283);g.stroke()}}
+ g.globalCompositeOperation='source-over';
+ for(i=0;i<P.length;i++){var p=P[i],al=.45+p.z*.55;
+  if(p.life){var left=p.life-p.age;if(left<50)al*=left/50}
+  var sc=p.s,c=Math.cos(p.r)*sc,sn=Math.sin(p.r)*sc;
+  g.globalAlpha=al;g.setTransform(c*D,sn*D,-sn*D,c*D,p.x*D,p.y*D);g.drawImage(sprites[p.k%n],-SS/2,-SS/2)}
+ g.setTransform(D,0,0,D,0,0);g.globalAlpha=1}
+function loop(){step();draw();requestAnimationFrame(loop)}
+
+addEventListener('pointermove',function(e){if(mx>-9000){pvx+=e.clientX-mx;pvy+=e.clientY-my}mx=e.clientX;my=e.clientY});
+addEventListener('pointerleave',function(){mx=my=-9999});
+document.addEventListener('pointerout',function(e){if(!e.relatedTarget)mx=my=-9999});
+addEventListener('pointerdown',function(e){if(e.target.closest('button,a'))return;burst(e.clientX,e.clientY,46,1);if(still)draw()});
+document.getElementById('pour').onclick=function(){pour();if(still){for(var i=0;i<90;i++)step();draw()}};
+document.getElementById('flavor').onclick=function(){fi=(fi+1)%FLAVORS.length;this.textContent='Flavor: '+FLAVORS[fi][0];bake();burst(W/2,H/2,30,.8);if(still)draw()};
+document.getElementById('milk').onclick=function(){var on=document.body.classList.toggle('milk');this.setAttribute('aria-pressed',on);this.textContent=on?'Drink the milk':'Add milk'};
+addEventListener('resize',size);
+bake();size();
+if(still){for(var i=0;i<40;i++)step();draw()}else loop();
+})();
+</script>
+</body></html>
